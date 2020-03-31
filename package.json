@@ -3,7 +3,9 @@
     "client": "cd packages/client && yarn start",
     "server": "cd packages/server && yarn start",
     "node:client": "cd packages/client && yarn",
-    "node:server": "cd packages/server && yarn"
+    "node:server": "cd packages/server && yarn",
+    "npmclient": "cd packages/client && ionic serve",
+    "npmserver": "cd packages/server && npm start"
   },
   "name": "ws-app2",
   "version": "1.0.0",
