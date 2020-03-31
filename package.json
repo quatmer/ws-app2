@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "client": "cd packages/client && yarn start",
+    "server": "cd packages/server && yarn start"
+  },
+  "name": "ws-app2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quatmer/ws-app2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quatmer/ws-app2/issues"
+  },
+  "homepage": "https://github.com/quatmer/ws-app2#readme",
+  "description": ""
+}

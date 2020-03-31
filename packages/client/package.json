@@ -23,7 +23,7 @@
     "typescript": "3.7.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "ionic serve",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
