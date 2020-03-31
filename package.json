@@ -1,7 +1,9 @@
 {
   "scripts": {
     "client": "cd packages/client && yarn start",
-    "server": "cd packages/server && yarn start"
+    "server": "cd packages/server && yarn start",
+    "node:client": "cd packages/client && yarn",
+    "node:server": "cd packages/server && yarn"
   },
   "name": "ws-app2",
   "version": "1.0.0",
