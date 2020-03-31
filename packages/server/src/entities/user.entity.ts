@@ -3,7 +3,7 @@ import mongooseUniqueValidator = require('mongoose-unique-validator');
 import bcrypt from 'bcryptjs';
 
 import { hashSync } from 'bcryptjs';
-import { IUser, UserType, UserAddress } from './../../../shared/models/user';
+import { IUser } from './../../../shared/models/user';
 
 const UserAddressSchema = new Schema(
   {
@@ -28,7 +28,7 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    userType: UserType,
+    userType: { type: String, required: true, enum: ['admin', 'client'] },
   },
   { timestamps: true, versionKey: false, bufferCommands: false },
 );
