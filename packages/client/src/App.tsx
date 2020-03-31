@@ -20,11 +20,27 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import { Route, Redirect } from 'react-router';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import ErrorPage from './pages/ErrorPage';
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonRouterOutlet></IonRouterOutlet>
+      <IonRouterOutlet>
+
+        <Route path="/home" component={HomePage} />
+        <Route exact path="/" render={() => <Redirect to="/home" />} />
+
+        <Route path="/login" component={LoginPage} />
+        <Route path="/signup" component={SignupPage} />
+
+        <Route path="/error" component={ErrorPage} />
+        <Redirect to="/error" />
+
+      </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
 );
