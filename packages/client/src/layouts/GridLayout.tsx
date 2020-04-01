@@ -5,7 +5,7 @@ import { IonGrid, IonRow } from '@ionic/react';
 const GridLayout: FC = props => {
   return (
     <IonGrid id="grid-layout">
-      <IonRow>{props.children}</IonRow>
+      <IonRow id="grid-layout-row">{props.children}</IonRow>
     </IonGrid>
   );
 };

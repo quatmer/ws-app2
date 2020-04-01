@@ -1,12 +1,14 @@
-import React from 'react'
+import React from 'react';
+import { IonPage } from '@ionic/react';
+import AuthLayout from 'src/layouts/AuthLayout';
+import SignupForm from 'src/container/auth/SignupForm';
 
-const SignupPage = () =>
-{
-    return (
-        <div>
-            Sign-up Page
-        </div>
-    )
+const SignupPage = () => {
+  return (
+    <AuthLayout>
+      <SignupForm />
+    </AuthLayout>
+  );
 };
 
-export default SignupPage
+export default SignupPage;

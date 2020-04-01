@@ -30,6 +30,12 @@
   height: 100%;
 }
 
+.content-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .check-border {
   border: solid;
 }
