@@ -39,3 +39,17 @@
 .check-border {
   border: solid;
 }
+
+#loading-spinner {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ion-spinner {
+    width: 80px !important;
+    height: 80px !important;
+    color: var(--ion-color-danger);
+  }
+}
