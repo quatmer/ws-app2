@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   IonCard,
   IonCardHeader,
@@ -15,7 +15,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { AuthActions } from 'src/redux/auth/action';
 import { useTypeSelector } from 'src/redux/helper/selector.helper';
-import { useLocation, useHistory } from 'react-router';
+import { useLocation } from 'react-router';
 import AuthLayout from 'src/layouts/AuthLayout';
 
 type State = {
