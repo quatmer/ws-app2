@@ -1,6 +1,7 @@
 import { IUser } from '../../../../shared/models/user';
 import { Reducer } from 'typesafe-actions';
 import { AuthActionFuncType, AuthActionType } from './action';
+import { AuthServices } from 'src/api/services/auth.service';
 
 export type AuthStateType = {
   loading: boolean;
@@ -10,7 +11,7 @@ export type AuthStateType = {
 
 const initialState: AuthStateType = {
   loading: false,
-  user: null,
+  user: AuthServices.getUser(),
   error: null,
 };
 
@@ -32,6 +33,10 @@ export const authReducer: Reducer<AuthStateType, AuthActionFuncType> = (
     case AuthActionType.AUTH_FAILED: {
       const { message } = action.payload;
       return { ...state, loading: false, user: null, error: message };
+    }
+
+    case AuthActionType.LOGOUT: {
+      return { ...state, loading: false, user: null, error: null };
     }
     default:
       return { ...state };
