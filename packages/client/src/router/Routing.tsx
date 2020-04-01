@@ -6,17 +6,17 @@ import HomePage from 'src/pages/HomePage';
 import LoginPage from 'src/pages/LoginPage';
 import SignupPage from 'src/pages/SignupPage';
 import ErrorPage from 'src/pages/ErrorPage';
+import AuthRoute from './AuthRoute';
 
 const Routing = () => {
   return (
     <IonReactRouter>
       <Switch>
-        <Route path="/login" component={LoginPage} />
-        <Route path="/signup" component={SignupPage} />
+        <Route path="/login" exact={true} component={LoginPage} />
+        <Route path="/signup" exact={true} component={SignupPage} />
         <IonRouterOutlet>
-          <Route path="/home" component={HomePage} />
+          <AuthRoute path="/home" exact={true} component={HomePage} />
           <Route exact path="/" render={() => <Redirect to="/home" />} />
-
           <Route path="/error" component={ErrorPage} />
           <Redirect to="/error" />
         </IonRouterOutlet>
