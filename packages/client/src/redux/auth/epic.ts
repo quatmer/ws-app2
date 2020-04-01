@@ -22,7 +22,6 @@ const login: Epic = actions$ =>
 
         if (!!response.data.hasError) {
           throw response.data.message;
-          return;
         }
 
         AuthServices.saveToken(response.data.token);
@@ -49,7 +48,6 @@ const register: Epic = actions$ =>
 
         if (!!response.data.hasError) {
           throw response.data.message;
-          return;
         }
 
         AuthServices.saveToken(response.data.token);
