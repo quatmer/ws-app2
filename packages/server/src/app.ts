@@ -5,12 +5,14 @@ import { connect } from 'mongoose';
 import router from './routes';
 import { handleRouteError, handleError } from './middlewares/error.middleware';
 import { corsCredential } from './middlewares/cors.middleware';
+import { logger } from './middlewares/logger.middleware';
 
 const app = express();
 
 // middleware
 app.use(bodyParser.json());
 app.use(corsCredential);
+app.use(logger);
 
 //routes
 app.use(router);
