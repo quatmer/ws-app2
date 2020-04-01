@@ -13,7 +13,7 @@ const login: Epic = actions$ =>
       const { username, password } = action.payload;
       try {
         const response = await Axios.post<{ user: IUser; message: string; token: string; hasError: boolean }>(
-          '/login',
+          '/auth/login',
           {
             username,
             password,
@@ -40,7 +40,7 @@ const register: Epic = actions$ =>
       const { username, password } = action.payload;
       try {
         const response = await Axios.post<{ user: IUser; message: string; token: string; hasError: boolean }>(
-          '/register',
+          '/auth/register',
           {
             username,
             password,
