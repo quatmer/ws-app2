@@ -3,7 +3,7 @@ import mongooseUniqueValidator = require('mongoose-unique-validator');
 import bcrypt from 'bcryptjs';
 
 import { hashSync } from 'bcryptjs';
-import { IUser } from './../../../shared/models/user';
+import { IUserDocument } from './../../../shared/models/user';
 
 const UserAddressSchema = new Schema(
   {
@@ -35,7 +35,7 @@ const UserSchema = new Schema(
 
 mongooseUniqueValidator(UserSchema);
 
-export interface UserDocument extends IUser, Document {
+export interface UserDocument extends IUserDocument, Document {
   isPasswordValid(password: string): string;
 }
 

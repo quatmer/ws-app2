@@ -1,4 +1,7 @@
-export interface IUser {
+export interface IUser extends IUserDocument {
+  _id: string;
+}
+export interface IUserDocument {
   username: string;
   password: string;
   userType: UserType;
