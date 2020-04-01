@@ -1,13 +1,28 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import GridLayout from './GridLayout';
 import { IonCol } from '@ionic/react';
+import { useHistory } from 'react-router';
+import { useTypeSelector } from 'src/redux/helper/selector.helper';
 
-const AuthLayout: FC = props => {
+type Props = { redirectPath?: string };
+
+const AuthLayout: FC<Props> = ({ redirectPath = '/', children }) => {
+  const { user } = useTypeSelector(s => s.authState);
+  const history = useHistory();
+  useEffect(() => {
+    console.log('[AuthLayout] useEffect init');
+    if (!!user) {
+      history.replace(redirectPath);
+    }
+    return () => console.log('[AuthLayout] useEffect destroy');
+    //eslint-disable-next-line
+  }, [!!user]);
+
   return (
     <div id="auth-layout-container">
       <GridLayout>
         <IonCol sizeXs="12" sizeSm="11" sizeMd="10" sizeLg="8" sizeXl="6">
-          {props.children}
+          {children}
         </IonCol>
       </GridLayout>
     </div>
