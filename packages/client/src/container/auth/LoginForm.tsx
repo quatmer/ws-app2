@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   IonCard,
   IonCardHeader,
@@ -15,6 +15,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { AuthActions } from 'src/redux/auth/action';
 import { useTypeSelector } from 'src/redux/helper/selector.helper';
+import { useLocation, useHistory } from 'react-router';
 
 type State = {
   username: string;
@@ -22,13 +23,29 @@ type State = {
 };
 
 const LoginForm = () => {
-  const { loading } = useTypeSelector(s => s.authState);
+  const { loading, user } = useTypeSelector(s => s.authState);
+  const history = useHistory();
+  const location = useLocation<{ from: Location }>();
+
   const dispatch = useDispatch();
   const [state, setState] = useState<State>({ username: 'quatmer', password: '4mer' });
 
   const login = () => {
     dispatch(AuthActions.login(state.username, state.password));
   };
+
+  useEffect(() => {
+    console.log('[LoginForm] useEffect init');
+    if (!!user) {
+      if (!!location.state && !!location.state.from) {
+        history.replace(location.state.from.pathname);
+      } else {
+        history.replace('/');
+      }
+    }
+    return () => console.log('[LoginForm] useEffect destroy');
+    //eslint-disable-next-line
+  }, [!!user]);
 
   return (
     <IonCard>
