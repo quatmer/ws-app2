@@ -16,7 +16,7 @@ const UserAddressSchema = new Schema(
 const UserSchema = new Schema(
   {
     name: String,
-    email: String,
+    email: { type: String, unique: true, required: true },
     telephone: String,
     address: { type: [UserAddressSchema] },
     username: {

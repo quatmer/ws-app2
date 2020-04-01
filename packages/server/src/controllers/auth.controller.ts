@@ -5,13 +5,19 @@ import { JWT } from '../util/JwtHelper';
 
 export namespace AuthController {
   export const register = async (req: Request, res: Response, next: NextFunction) => {
-    const { name, username, password } = req.body;
+    const { name, email, telephone, address, username, password, userType } = req.body;
 
     let user = new UserEntity();
 
     user.name = name;
+    user.email = email;
+    user.telephone = telephone;
+    user.address = address;
     user.username = username;
     user.password = password;
+    user.userType = userType;
+
+    console.log('Request User Object : ' + JSON.stringify(user));
 
     //Checking document validation
     const validationError = await user.validateSync();
