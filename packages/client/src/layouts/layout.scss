@@ -5,6 +5,23 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+
+  ion-card {
+    position: relative;
+    #auth-button-container {
+      padding: 5px;
+      margin-bottom: 35px;
+      ion-button {
+        width: 90%;
+        max-width: 300px;
+      }
+    }
+    #other-auth-button {
+      position: absolute;
+      right: 5px;
+      bottom: 5px;
+    }
+  }
 }
 
 #grid-layout {
@@ -13,4 +30,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  #grid-layout-row {
+    width: 100%;
+    justify-content: center;
+  }
 }
