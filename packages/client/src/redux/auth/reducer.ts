@@ -1,8 +1,6 @@
 import { IUser } from '../../../../shared/models/user';
 import { Reducer } from 'typesafe-actions';
 import { AuthActionFuncType, AuthActionType } from './action';
-import { userEpics } from './epic';
-import { stat } from 'fs';
 
 export type AuthStateType = {
   loading: boolean;
@@ -29,7 +27,7 @@ export const authReducer: Reducer<AuthStateType, AuthActionFuncType> = (
     }
     case AuthActionType.AUTH_SUCCESS: {
       const { user } = action.payload;
-      return { ...stat, loading: false, user: user, error: null };
+      return { ...state, loading: false, user: user, error: null };
     }
     case AuthActionType.AUTH_FAILED: {
       const { message } = action.payload;

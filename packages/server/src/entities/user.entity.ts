@@ -16,7 +16,7 @@ const UserAddressSchema = new Schema(
 const UserSchema = new Schema(
   {
     name: String,
-    email: { type: String, unique: true, required: true },
+    email: { type: String, unique: true },
     telephone: String,
     address: { type: [UserAddressSchema] },
     username: {
@@ -28,7 +28,7 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    userType: { type: String, required: true, enum: ['admin', 'client'] },
+    userType: { type: String, enum: ['admin', 'client'], default: 'client`' },
   },
   { timestamps: true, versionKey: false, bufferCommands: false },
 );

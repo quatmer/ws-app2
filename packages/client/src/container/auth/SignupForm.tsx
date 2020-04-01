@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   IonCard,
   IonCardHeader,
@@ -10,9 +10,34 @@ import {
   IonLabel,
   IonInput,
   IonButton,
+  IonNote,
+  IonSpinner,
 } from '@ionic/react';
+import { useTypeSelector } from 'src/redux/helper/selector.helper';
+import { useDispatch } from 'react-redux';
+import { AuthActions } from 'src/redux/auth/action';
+
+type State = { username: string; password: string; rePassword: string };
 
 const SignupForm = () => {
+  const dispatch = useDispatch();
+  const { loading } = useTypeSelector(s => s.authState);
+  const [state, setState] = useState<State>({ username: 'quatmer', password: '4mer', rePassword: '4mer' });
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    console.log(state.password, state.rePassword);
+    if (state.password !== state.rePassword) {
+      setErrorMessage('password must be match');
+    } else {
+      setErrorMessage('');
+    }
+  }, [state.password, state.rePassword]);
+
+  const register = () => {
+    dispatch(AuthActions.register(state.username, state.password));
+  };
+
   return (
     <IonCard>
       <IonCardHeader>
@@ -27,25 +52,42 @@ const SignupForm = () => {
               username
               <IonText color="danger"> *</IonText>
             </IonLabel>
-            <IonInput type="text" />
+            <IonInput
+              type="text"
+              value={state.username}
+              onIonChange={event => setState({ ...state, username: event.detail.value || '' })}
+            />
           </IonItem>
           <IonItem>
             <IonLabel position="stacked">
               password
               <IonText color="danger"> *</IonText>
             </IonLabel>
-            <IonInput type="password" />
+            <IonInput
+              type="password"
+              value={state.password}
+              onIonChange={event => setState({ ...state, password: event.detail.value || '' })}
+            />
           </IonItem>
           <IonItem>
             <IonLabel position="stacked">
               re-password
-              <IonText color="danger"> *</IonText>
+              <IonText color="danger">
+                {' '}
+                * <IonNote color="danger">{errorMessage}</IonNote>
+              </IonText>
             </IonLabel>
-            <IonInput type="password" />
+            <IonInput
+              type="password"
+              value={state.rePassword}
+              onIonChange={event => setState({ ...state, rePassword: event.detail.value || '' })}
+            />
           </IonItem>
         </IonList>
         <div id="auth-button-container" className="full-size content-center">
-          <IonButton color="tertiary">Signup</IonButton>
+          <IonButton color="tertiary" disabled={!!errorMessage || loading} onClick={register}>
+            {loading ? <IonSpinner name="dots" /> : 'Signup'}
+          </IonButton>
         </div>
 
         <IonButton id="other-auth-button" fill="clear" color="medium" size="small" routerLink="/login">
