@@ -4,11 +4,13 @@ import { config } from './config';
 import { connect } from 'mongoose';
 import router from './routes';
 import { handleRouteError, handleError } from './middlewares/error.middleware';
+import { corsCredential } from './middlewares/cors.middleware';
 
 const app = express();
 
 // middleware
 app.use(bodyParser.json());
+app.use(corsCredential);
 
 //routes
 app.use(router);
