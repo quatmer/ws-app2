@@ -11,13 +11,19 @@ export const handleError = (error: HttpError, _: Request, res: Response, next: N
     return next(error);
   }
 
+  
   console.log(error.status + ':', error.message);
+  
   const status = error.status || 500;
   const message = error.message || 'Something went wrong';
+  const hasError = true;
 
   res.statusMessage = error.message;
   res.status(status).send({
     status,
     message,
+    hasError
   });
 };
+
+
