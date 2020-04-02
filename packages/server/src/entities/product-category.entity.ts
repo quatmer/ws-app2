@@ -1,6 +1,6 @@
 import { Schema, Document, model } from 'mongoose';
 import mongooseUniqueValidator = require('mongoose-unique-validator');
-import { IProductCategoryDocument } from '@shared/models/productCategory';
+import { IProductCategoryDocument } from '@shared/models/product-category';
 
 const ProductCategorySchema = new Schema(
   {
