@@ -12,6 +12,7 @@ export enum ProductCategoryActionType {
   GET_LIST = '[product category]: GET_LIST',
   GET_LIST_SUCCESS = '[product category]: GET_LIST_SUCCESS',
   GET_LIST_ERROR = '[product category]: GET_LIST_ERROR',
+  TOGGLE_SELECT = '[product category]: TOGGLE_SELECT',
 }
 
 export const ProductCategoryActions = {
@@ -29,6 +30,8 @@ export const ProductCategoryActions = {
   getListSuccess: (categories: IProductCategory[]) =>
     action(ProductCategoryActionType.GET_LIST_SUCCESS, { categories }),
   getListError: (message: string) => action(ProductCategoryActionType.GET_LIST_ERROR, { message }),
+
+  toggleSelect: (id: string) => action(ProductCategoryActionType.TOGGLE_SELECT, { id }),
 };
 
 export type ProductCategoryFuncType = ActionsUnion<typeof ProductCategoryActions>;

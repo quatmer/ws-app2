@@ -19,7 +19,7 @@ const ProductCategoryList = () => {
       <IonRow>
         {categories.map(c => {
           return (
-            <IonCol>
+            <IonCol size="12" key={c._id}>
               <ProductCategoryListItem category={c} isSelected={false} />
             </IonCol>
           );
