@@ -30,4 +30,25 @@ const createUpdate: Epic<ProductCategoryFuncType> = action$ =>
     }),
   );
 
-export const productCategoryEpics = [createUpdate];
+const getList: Epic<ProductCategoryFuncType> = action$ =>
+  action$.pipe(
+    filter(isOfType(ProductCategoryActionType.GET_LIST)),
+    switchMap(async action => {
+      const response = await Axios.get<{ categories: IProductCategory[]; hasError: boolean; message: string }>(
+        '/product-category',
+        {},
+      );
+
+      try {
+        if (response.data.hasError) {
+          throw response.data.message;
+        } else {
+          return ProductCategoryActions.getListSuccess(response.data.categories);
+        }
+      } catch (error) {
+        return ProductCategoryActions.getListError(error.message);
+      }
+    }),
+  );
+
+export const productCategoryEpics = [createUpdate, getList];
