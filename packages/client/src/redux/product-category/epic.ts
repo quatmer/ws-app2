@@ -3,7 +3,7 @@ import { isOfType } from 'typesafe-actions';
 import { filter, switchMap } from 'rxjs/operators';
 import { ProductCategoryActionType, ProductCategoryActions, ProductCategoryFuncType } from './action';
 import Axios from 'axios';
-import { IProductCategory } from '../../../../shared/models/product-category';
+import { IProductCategory } from '@shared/models/product-category';
 
 const createUpdate: Epic<ProductCategoryFuncType> = action$ =>
   action$.pipe(

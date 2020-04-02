@@ -1,4 +1,4 @@
-import { IUser } from '../../../../shared/models/user';
+import { IUser } from '@shared/models/user';
 
 export const AuthServices = {
   setToken: (token: string) => {

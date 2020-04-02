@@ -1,7 +1,7 @@
-import { IUser } from '../../../../shared/models/user';
 import { Reducer } from 'typesafe-actions';
 import { AuthActionFuncType, AuthActionType } from './action';
 import { AuthServices } from 'src/api/services/auth.service';
+import { IUser } from '@shared/models/user';
 
 export type AuthStateType = {
   loading: boolean;

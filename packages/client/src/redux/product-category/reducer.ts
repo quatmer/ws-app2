@@ -1,6 +1,6 @@
-import { IProductCategory } from '../../../../shared/models/product-category';
 import { Reducer } from 'typesafe-actions';
 import { ProductCategoryActionType, ProductCategoryFuncType } from './action';
+import { IProductCategory } from '@shared/models/product-category';
 
 export type ProductCategoryStateType = {
   loading: boolean;
