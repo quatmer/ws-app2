@@ -4,7 +4,7 @@ import { ProductCategoryController } from '../controllers/product-category.contr
 
 const productCategoryRouter = Router();
 
-productCategoryRouter.post('/update', [checkAuthentication], ProductCategoryController.update);
-productCategoryRouter.get('/get', [checkAuthentication], ProductCategoryController.get);
+productCategoryRouter.post('/', [checkAuthentication], ProductCategoryController.update);
+productCategoryRouter.get('/', [checkAuthentication], ProductCategoryController.get);
 
 export default productCategoryRouter;
