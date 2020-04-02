@@ -6,7 +6,8 @@ import { useTypeSelector } from 'src/redux/helper/selector.helper';
 
 type Props = { redirectPath?: string };
 
-const AuthLayout: FC<Props> = ({ redirectPath = '/', children }) => {
+const AuthLayout: FC<Props> = (props) => {
+  const { redirectPath = '/' }=props;
   const { user } = useTypeSelector(s => s.authState);
   const history = useHistory();
   useEffect(() => {
@@ -22,7 +23,7 @@ const AuthLayout: FC<Props> = ({ redirectPath = '/', children }) => {
     <div id="auth-layout-container">
       <GridLayout>
         <IonCol sizeXs="12" sizeSm="11" sizeMd="10" sizeLg="8" sizeXl="6">
-          {children}
+          {props.children}
         </IonCol>
       </GridLayout>
     </div>
