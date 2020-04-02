@@ -1,10 +1,13 @@
 import { Reducer } from 'typesafe-actions';
 import { ProductCategoryActionType, ProductCategoryFuncType } from './action';
 import { IProductCategory } from '@shared/models/product-category';
+import { findAndToggleCategory } from '../utils/product-category';
+
+export type ProductCategoryDTO = IProductCategory & { isSelected?: boolean };
 
 export type ProductCategoryStateType = {
   loading: boolean;
-  categories: IProductCategory[];
+  categories: ProductCategoryDTO[];
   error: string | null;
 };
 
@@ -81,6 +84,13 @@ export const productCategoryReducer: Reducer<ProductCategoryStateType, ProductCa
     case ProductCategoryActionType.GET_LIST_ERROR: {
       const { message } = action.payload;
       return { ...state, loading: false, error: message };
+    }
+
+    case ProductCategoryActionType.TOGGLE_SELECT: {
+      const { id } = action.payload;
+      const categories = [...findAndToggleCategory(id, state.categories)];
+
+      return { ...state, categories };
     }
     default:
       return { ...state };
