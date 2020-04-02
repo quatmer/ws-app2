@@ -9,6 +9,14 @@ export const checkAuthentication = async (req: Request, res: Response, next: Nex
   // Get the token from the head
   const token = <string>req.headers['auth'];
 
+  console.log('token in headers : ', token);
+
+  if (!token || token == undefined) {
+    console.log('Token is not valid, Token is empty or not provided');
+    next(new HttpError('Token is undefined'));
+    return;
+  }
+
   // Try to validate token and get data
   try {
     tokenParams = JWT.verifyToken(token);
