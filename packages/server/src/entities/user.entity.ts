@@ -3,7 +3,7 @@ import mongooseUniqueValidator = require('mongoose-unique-validator');
 import bcrypt from 'bcryptjs';
 
 import { hashSync } from 'bcryptjs';
-import { IUserDocument } from './../../../shared/models/user';
+import { IUserDocument } from '@shared/models/user';
 
 const UserAddressSchema = new Schema(
   {
