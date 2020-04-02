@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { mailOutline, mailSharp } from 'ionicons/icons';
+import { mailOutline, mailSharp, gridOutline, gridSharp } from 'ionicons/icons';
 import './SideMenu.scss';
 
 interface MenuProps extends RouteComponentProps {
@@ -31,6 +31,12 @@ const appPages: AppPage[] = [
     url: '/home',
     iosIcon: mailOutline,
     mdIcon: mailSharp,
+  },
+  {
+    title: 'Product Category',
+    url: '/product-category',
+    iosIcon: gridOutline,
+    mdIcon: gridSharp,
   },
 ];
 

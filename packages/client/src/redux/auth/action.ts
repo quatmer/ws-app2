@@ -1,6 +1,6 @@
 import { action } from 'typesafe-actions';
 import { ActionsUnion } from '../helper/type.helper';
-import { IUser } from '../../../../shared/models/user';
+import { IUser } from '@shared/models/user';
 
 export enum AuthActionType {
   LOGIN = '[auth]: LOGIN',

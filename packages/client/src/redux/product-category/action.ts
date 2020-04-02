@@ -1,6 +1,6 @@
 import { action } from 'typesafe-actions';
 import { ActionsUnion } from '../helper/type.helper';
-import { IProductCategory } from '../../../../shared/models/product-category';
+import { IProductCategory } from '@shared/models/product-category';
 
 export enum ProductCategoryActionType {
   CREATE_UPDATE = '[product category]: CREATE_UPDATE',

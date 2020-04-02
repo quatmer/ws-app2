@@ -3,8 +3,8 @@ import { isOfType } from 'typesafe-actions';
 import { filter, switchMap, tap, ignoreElements } from 'rxjs/operators';
 import Axios from 'axios';
 import { AuthActionType, AuthActions } from './action';
-import { IUser } from '../../../../shared/models/user';
 import { AuthServices } from 'src/api/services/auth.service';
+import { IUser } from '@shared/models/user';
 
 const login: Epic = actions$ =>
   actions$.pipe(
