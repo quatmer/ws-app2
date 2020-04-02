@@ -1,42 +1,33 @@
 import { Epic } from 'redux-observable';
 import { isOfType } from 'typesafe-actions';
 import { filter, switchMap } from 'rxjs/operators';
-import { ProductCategoryActionType, ProductCategoryActions } from './action';
+import { ProductCategoryActionType, ProductCategoryActions, ProductCategoryFuncType } from './action';
+import Axios from 'axios';
+import { IProductCategory } from '../../../../shared/models/product-category';
 
-const createProductCategory: Epic = action$ =>
+const createUpdate: Epic<ProductCategoryFuncType> = action$ =>
   action$.pipe(
-    filter(isOfType(ProductCategoryActionType.CREATE)),
+    filter(isOfType(ProductCategoryActionType.CREATE_UPDATE)),
     switchMap(async action => {
+      const { category } = action.payload;
+      const refId = category._id;
+      delete category._id;
+
+      const response = await Axios.post<{ category: IProductCategory; hasError: boolean; message: string }>(
+        '/product-category',
+        { category },
+      );
+
       try {
-        //create productCategory
+        if (response.data.hasError) {
+          throw response.data.message;
+        } else {
+          return ProductCategoryActions.createUpdateSuccess(response.data.category, refId);
+        }
       } catch (error) {
-        return ProductCategoryActions.createError(error.message);
+        return ProductCategoryActions.createUpdateError(error.message, category, refId);
       }
     }),
   );
 
-const updateProductCategory: Epic = action$ =>
-  action$.pipe(
-    filter(isOfType(ProductCategoryActionType.UPDATE)),
-    switchMap(async action => {
-      try {
-        //update productCategory
-      } catch (error) {
-        return ProductCategoryActions.updateError(error.message);
-      }
-    }),
-  );
-
-const deleteProductCategory: Epic = action$ =>
-  action$.pipe(
-    filter(isOfType(ProductCategoryActionType.DELETE)),
-    switchMap(async action => {
-      try {
-        //delete productCategory
-      } catch (error) {
-        return ProductCategoryActions.deleteError(error.message);
-      }
-    }),
-  );
-
-export const productCategoryEpics = [createProductCategory, updateProductCategory, deleteProductCategory];
+export const productCategoryEpics = [createUpdate];

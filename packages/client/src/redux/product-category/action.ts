@@ -16,16 +16,18 @@ export enum ProductCategoryActionType {
 
 export const ProductCategoryActions = {
   createUpdate: (category: IProductCategory) => action(ProductCategoryActionType.CREATE_UPDATE, { category }),
-  createUpdateSuccess: (category: IProductCategory) =>
-    action(ProductCategoryActionType.CREATE_UPDATE_SUCCESS, { category }),
-  createUpdateError: (message: string) => action(ProductCategoryActionType.CREATE_UPDATE_ERROR, { message }),
+  createUpdateSuccess: (category: IProductCategory, refId: string) =>
+    action(ProductCategoryActionType.CREATE_UPDATE_SUCCESS, { category, refId }),
+  createUpdateError: (message: string, category: IProductCategory, refId: string) =>
+    action(ProductCategoryActionType.CREATE_UPDATE_ERROR, { message, category, refId }),
 
   delete: (id: string) => action(ProductCategoryActionType.DELETE, { id }),
   deleteSuccess: (id: string) => action(ProductCategoryActionType.DELETE_SUCCESS, { id }),
   deleteError: (message: string) => action(ProductCategoryActionType.DELETE_ERROR, { message }),
 
   getList: () => action(ProductCategoryActionType.GET_LIST),
-  getListSuccess: (categories: IProductCategory[]) => action(ProductCategoryActionType.GET_LIST_SUCCESS, { categories }),
+  getListSuccess: (categories: IProductCategory[]) =>
+    action(ProductCategoryActionType.GET_LIST_SUCCESS, { categories }),
   getListError: (message: string) => action(ProductCategoryActionType.GET_LIST_ERROR, { message }),
 };
 
