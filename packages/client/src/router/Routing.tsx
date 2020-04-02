@@ -8,6 +8,7 @@ import SignupPage from 'src/pages/SignupPage';
 import ErrorPage from 'src/pages/ErrorPage';
 import AuthRoute from './AuthRoute';
 import SideMenu from 'src/components/SideMenu';
+import ProductCategoryPage from 'src/pages/ProductCategoryPage';
 
 const Routing = () => {
   return (
@@ -20,6 +21,7 @@ const Routing = () => {
           <IonRouterOutlet id="main">
             <Route exact path="/" render={() => <Redirect to="/home" />} />
             <AuthRoute path="/home" exact={true} component={HomePage} />
+            <Route path="/productPageCategory" component={ProductCategoryPage} />
             <Route path="/error" component={ErrorPage} />
             <Redirect to="/error" />
           </IonRouterOutlet>
