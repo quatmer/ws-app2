@@ -1,9 +1,9 @@
 export interface IProductCategory extends IProductCategoryDocument {
   _id: string;
-  child: IProductCategory[];
+  children: IProductCategory[];
 }
 export interface IProductCategoryDocument {
   name: string;
   productCount: number;
-  child: IProductCategoryDocument[];
+  children: IProductCategoryDocument[];
 }
