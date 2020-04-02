@@ -49,7 +49,7 @@ const LoginForm = () => {
           <IonList>
             <IonItem>
               <IonLabel position="stacked">
-                username
+                Username
                 <IonText color="danger"> *</IonText>
               </IonLabel>
               <IonInput
@@ -60,7 +60,7 @@ const LoginForm = () => {
             </IonItem>
             <IonItem>
               <IonLabel position="stacked">
-                password
+                Password
                 <IonText color="danger"> *</IonText>
               </IonLabel>
               <IonInput
@@ -77,7 +77,7 @@ const LoginForm = () => {
           </div>
 
           <IonButton id="other-auth-button" fill="clear" color="medium" size="small" routerLink="/signup">
-            signup
+            Signup
           </IonButton>
         </IonCardContent>
       </IonCard>
