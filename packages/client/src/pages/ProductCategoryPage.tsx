@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react';
+import ProductCategoryList from 'src/container/ProductCategoryList/ProductCategoryList';
 
-const ProductCategoryPage = () =>
-{
-    return (
-        <div>
-            Product Category Page
-        </div>
-    )
-}
+const ProductCategoryPage = () => {
+  return (
+    <div>
+      <ProductCategoryList />
+    </div>
+  );
+};
 
 export default ProductCategoryPage;
