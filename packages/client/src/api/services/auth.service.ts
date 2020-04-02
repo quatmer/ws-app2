@@ -6,7 +6,7 @@ export const AuthServices = {
   },
 
   getToken: () => {
-    localStorage.getItem('authToken');
+    return localStorage.getItem('authToken');
   },
 
   setUser: (user: IUser | null) => {
