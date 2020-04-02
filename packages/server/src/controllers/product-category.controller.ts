@@ -1,93 +1,57 @@
-import { JWT } from './../util/JwtHelper';
 import { HttpError } from './../util/HttpError';
 import { ProductCategoryEntity, ProductCategoryDocument } from './../entities/product-category.entity';
 import { Request, Response, NextFunction } from 'express';
-import { IProductCategoryDocument } from '@shared/models/product-category';
+import { IProductCategory } from '@shared/models/product-category';
 
 export namespace ProductCategoryController {
   export const update = async (req: Request, res: Response, next: NextFunction) => {
-    const productCategoryDocument = req.body.category as IProductCategoryDocument;
+    const productCategory = req.body.category as IProductCategory;
 
-    console.log('Request ProductCategory Document : ' + productCategoryDocument);
-
-    if (!productCategoryDocument) {
+    if (!productCategory) {
       next(new HttpError('Wrong parameters, cannot read product category object', 400));
       return;
     }
 
-    let productCategory = new ProductCategoryEntity();
-    productCategory.name = 'Elektronik';
-    productCategory.children = [
-      {
-        name: 'Buzdolabi',
-        productCount: 0,
-        children: [
-          { name: 'Iki kapili', productCount: 0, children: [] },
-          { name: 'Tek kapili', productCount: 0, children: [] },
-          { name: 'No frost', productCount: 0, children: [] },
-        ],
-      },
-    ];
-
-    // let productCategory: IProductCategoryDocument = {
-    //   name:'Elektronik', productCount: 0, children: [
-    //     {name:'Buzdolabi', productCount: 0, children:[
-    //       {name:'Iki kapili', productCount: 0, children:[]},
-    //       {name:'Tek kapili', productCount: 0, children:[]}
-    //       {name:'No frost', productCount: 0, children:[]}
-    //     ]}
-    //   ]
-    // }
-
-    // productCategory.name = productCategoryDocument.name;
-    // productCategory.children = productCategoryArray;
-    // //productCategory.children = new IProductCategoryDocument();
+    let productCategoryEntity = new ProductCategoryEntity();
+    productCategoryEntity._id = productCategory._id;
+    productCategoryEntity.name = productCategory.name;
+    productCategoryEntity.children = productCategory.children;
 
     console.log('Request ProductCategory Object : ' + productCategory);
 
     // Checking document validation
-    const validationError = await productCategory.validateSync();
+    const validationError = await productCategoryEntity.validateSync();
     if (validationError) {
       next(new HttpError(validationError.message, 400));
       return;
     }
 
-    // Remove All Data
+    // Checking is product category exist
     try {
-      await ProductCategoryEntity.remove({});
+      const model = await ProductCategoryEntity.findById(productCategoryEntity._id);
+      if (model) {
+        // model found, update it
+        model.name = productCategoryEntity.name;
+        model.children = productCategoryEntity.children;
+        const updateResult = await model.save();
+        console.log('Product category update result : ', updateResult);
+        res.status(200).send({ message: 'update product-category successful', category: updateResult });
+      } else {
+        // Model cannot found, insert new record
+        const insertResult = await productCategoryEntity.save();
+        console.log('Product category insert result : ', insertResult);
+        res.status(200).send({ message: 'insert product-category successful', category: insertResult });
+      }
     } catch (err) {
       next(new HttpError(err.message, 404));
       return;
     }
-
-    // // Checking is product category exist and deleting old category
-    // try {
-    //   const isDataExist = await ProductCategoryEntity.findOne();
-    //   if (isDataExist) {
-    //     await isDataExist.remove();
-    //   }
-    // } catch (err) {
-    //   next(new HttpError(err.message, 404));
-    //   return;
-    // }
-
-    // Saving new product category
-    try {
-      const result = await productCategory.save();
-      console.log('Product category save result : ', result);
-    } catch (err) {
-      next(new HttpError(err.message, 404));
-      return;
-    }
-
-    // Sending response with token
-    res.status(200).send({ message: 'update product category successful' });
   };
 
   export const get = async (req: Request, res: Response, next: NextFunction) => {
-    let productCategory: ProductCategoryDocument | null;
     try {
-      productCategory = await ProductCategoryEntity.findOne();
+      const categories = await ProductCategoryEntity.find().exec();
+      res.status(200).send({ message: 'getting product categories successful', categories });
     } catch (err) {
       next(new HttpError(err.message, 404));
       return;
@@ -98,6 +62,5 @@ export namespace ProductCategoryController {
     // const token = JWT.reCreateToken(res);
 
     // Sending response with token
-    res.status(200).send({ message: 'getting product category successful', productCategory });
   };
 }
