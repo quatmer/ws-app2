@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonButton, IonButtons, IonIcon } from '@ionic/react';
+import {
+  IonPage,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonContent,
+  IonButton,
+  IonButtons,
+  IonIcon,
+  IonMenuButton,
+} from '@ionic/react';
 import { logOutSharp } from 'ionicons/icons';
 import { useDispatch } from 'react-redux';
 import { AuthActions } from 'src/redux/auth/action';
@@ -17,6 +27,9 @@ const HomePage = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar color="tertiary">
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
           <IonTitle>Home Page</IonTitle>
           <IonButtons slot="end">
             <IonButton onClick={logout}>
