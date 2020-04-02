@@ -25,7 +25,7 @@ export const ProductCategoryActions = {
     action(ProductCategoryActionType.UPDATE_SUCCESS, { productCategory }),
   updateError: (message: string) => action(ProductCategoryActionType.UPDATE_ERROR, { message }),
 
-  delete: (name: string, categoryTree: IProductCategory) => action(ProductCategoryActionType.DELETE, { name }),
+  delete: (id: string) => action(ProductCategoryActionType.DELETE, { id }),
   deleteSuccess: (message: string) => action(ProductCategoryActionType.DELETE_SUCCESS, { message }),
   deleteError: (message: string) => action(ProductCategoryActionType.DELETE_ERROR, { message }),
 };

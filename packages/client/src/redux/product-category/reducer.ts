@@ -1,5 +1,5 @@
 import { IProductCategory } from '../../../../shared/models/product-category';
-import { Reducer, action } from 'typesafe-actions';
+import { Reducer } from 'typesafe-actions';
 import { ProductCategoryActionType, ProductCategoryFuncType } from './action';
 
 export type ProductCategoryStateType = {
