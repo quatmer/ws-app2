@@ -1,10 +1,22 @@
-import React from 'react';
-import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonButton, IonButtons, IonIcon } from '@ionic/react';
+import React, { useState } from 'react';
+import {
+  IonPage,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonContent,
+  IonButton,
+  IonButtons,
+  IonIcon,
+  IonMenuButton,
+} from '@ionic/react';
 import { logOutSharp } from 'ionicons/icons';
 import { useDispatch } from 'react-redux';
 import { AuthActions } from 'src/redux/auth/action';
+import WideModal from 'src/components/WideModal';
 
 const HomePage = () => {
+  const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
 
   const logout = () => {
@@ -15,6 +27,9 @@ const HomePage = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar color="tertiary">
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
           <IonTitle>Home Page</IonTitle>
           <IonButtons slot="end">
             <IonButton onClick={logout}>
@@ -23,7 +38,12 @@ const HomePage = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent></IonContent>
+      <IonContent>
+        <WideModal title="test" isOpen={openModal} onDidDismiss={() => setOpenModal(false)}></WideModal>
+        <IonButton class="ion-margin" onClick={() => setOpenModal(true)}>
+          Show Modal
+        </IonButton>
+      </IonContent>
     </IonPage>
   );
 };

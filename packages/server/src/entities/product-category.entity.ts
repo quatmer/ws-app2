@@ -2,10 +2,12 @@ import { Schema, Document, model } from 'mongoose';
 import mongooseUniqueValidator = require('mongoose-unique-validator');
 import { IProductCategoryDocument } from '@shared/models/product-category';
 
+const ProductCategoryChildSchema = new Schema({ name: String });
+
 const ProductCategorySchema = new Schema(
   {
-    name: { type: String, unique: true, required: true },
-    parent: String,
+    child: ProductCategoryChildSchema,
+    children: [ProductCategoryChildSchema],
   },
   { timestamps: true, versionKey: false, bufferCommands: false },
 );
