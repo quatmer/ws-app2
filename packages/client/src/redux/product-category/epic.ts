@@ -9,7 +9,7 @@ const createUpdate: Epic<ProductCategoryFuncType> = action$ =>
   action$.pipe(
     filter(isOfType(ProductCategoryActionType.CREATE_UPDATE)),
     switchMap(async action => {
-      const { category } = action.payload;
+      const category = { ...action.payload.category };
       const refId = category._id;
       delete category._id;
 
