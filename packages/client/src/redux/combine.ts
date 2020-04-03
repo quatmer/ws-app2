@@ -1,3 +1,4 @@
+import { appReducer } from './app/reducer';
 import { combineEpics } from 'redux-observable';
 import { combineReducers } from 'redux';
 import { authReducer } from './auth/reducer';
@@ -9,5 +10,6 @@ export const rootEpic = combineEpics(...authEpics, ...productCategoryEpics);
 
 export const rootReducer = combineReducers({
   authState: authReducer,
+  appState: appReducer,
   productCategoryState: productCategoryReducer,
 });

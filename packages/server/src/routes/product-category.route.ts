@@ -1,4 +1,4 @@
-import { checkAuthentication } from './../middlewares/auth.middleware';
+import { checkAuthentication } from '../middlewares/auth.middleware';
 import { Router } from 'express';
 import { ProductCategoryController } from '../controllers/product-category.controller';
 
