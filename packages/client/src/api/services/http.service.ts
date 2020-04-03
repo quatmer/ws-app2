@@ -4,10 +4,7 @@ import { AuthServices } from './auth.service';
 export const HttpService = {
   initializeAxios: () => {
     Axios.defaults.baseURL = ' http://localhost:3000';
-    const token = AuthServices.getToken();
-    console.log('token:', token);
-
-    Axios.defaults.headers.common['auth'] = token;
+    Axios.defaults.headers.common['auth'] = AuthServices.getToken();
   },
 
   startLogging: () => {
