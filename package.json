@@ -24,5 +24,8 @@
     "url": "https://github.com/quatmer/ws-app2/issues"
   },
   "homepage": "https://github.com/quatmer/ws-app2#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@types/uuid": "^7.0.2"
+  }
 }
