@@ -32,7 +32,8 @@
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.5.4",
     "typesafe-actions": "^5.1.0",
-    "typescript": "3.7.4"
+    "typescript": "3.7.4",
+    "uuid": "^7.0.3"
   },
   "scripts": {
     "start": "ionic serve",
@@ -55,5 +56,9 @@
       "last 1 safari version"
     ]
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "devDependencies": {
+    "@types/node-sass": "^4.11.0",
+    "@types/uuid": "^7.0.2"
+  }
 }
