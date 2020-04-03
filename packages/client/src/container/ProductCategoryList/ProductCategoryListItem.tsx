@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { IProductCategory } from '@shared/models/product-category';
+import React from 'react';
 import {
   IonCard,
   IonItem,
