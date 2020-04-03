@@ -1,6 +1,6 @@
+import './ProductCategoryList.scss';
 import React, { useEffect } from 'react';
 import { useTypeSelector } from 'src/redux/helper/selector.helper';
-import { IonGrid, IonRow, IonCol } from '@ionic/react';
 import ProductCategoryListItem from './ProductCategoryListItem';
 import { useDispatch } from 'react-redux';
 import { ProductCategoryActions } from '../../redux/product-category/action';
@@ -15,17 +15,11 @@ const ProductCategoryList = () => {
   }, []);
 
   return (
-    <IonGrid>
-      <IonRow>
-        {categories.map(c => {
-          return (
-            <IonCol size="12" key={c._id}>
-              <ProductCategoryListItem category={c} isSelected={false} />
-            </IonCol>
-          );
-        })}
-      </IonRow>
-    </IonGrid>
+    <div id="product-category-list">
+      {categories.map(c => {
+        return <ProductCategoryListItem key={c._id} category={c} />;
+      })}
+    </div>
   );
 };
 

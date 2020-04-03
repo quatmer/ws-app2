@@ -1,59 +1,66 @@
-import React, { useState } from 'react';
-import { IProductCategory } from '@shared/models/product-category';
-import {
-  IonCard,
-  IonItem,
-  IonLabel,
-  IonText,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  IonList,
-} from '@ionic/react';
+import React, { FC } from 'react';
+import { IonItem, IonLabel, IonText, IonList, IonIcon } from '@ionic/react';
 import { ProductCategoryDTO } from 'src/redux/product-category/reducer';
 import { useDispatch } from 'react-redux';
 import { ProductCategoryActions } from 'src/redux/product-category/action';
+import classNames from 'classnames';
+import { chevronDownOutline, chevronUpOutline } from 'ionicons/icons';
 
-type Props = { category: ProductCategoryDTO; isSelected: boolean };
+type Props = { category: ProductCategoryDTO };
 const ProductCategoryListItem = (props: Props) => {
   const { category } = props;
+
+  const subcategoriesList = () => (
+    <div id="subcategory-list">
+      <IonList>
+        {category.children.map(sc => (
+          <ProductCategoryListItem key={sc._id} category={sc} />
+        ))}
+      </IonList>
+    </div>
+  );
+
+  return (
+    <div id="product-category-item">
+      <Item category={category} />
+      {!!category.children.length && !!category.isSelected && subcategoriesList()}
+    </div>
+  );
+};
+
+const Item: FC<Props> = ({ category }) => {
   const dispatch = useDispatch();
+  const subcategoryCount = category.children.length;
+  const { productCount = 0, name } = category;
 
   const toggle = () => {
     dispatch(ProductCategoryActions.toggleSelect(category._id));
   };
 
-  const getUnselectedView = () => {
-    return (
-      <IonItem onClick={toggle}>
-        <IonLabel>
-          <h2>{category.name}</h2>
+  return (
+    <IonItem
+      id="product-category-item"
+      onClick={toggle}
+      key={category._id}
+      className={classNames({ isSelected: !!category.isSelected, canClick: !!subcategoryCount })}
+    >
+      <IonLabel>
+        <h2>{name}</h2>
+        <p>
+          has <IonText color="danger">{subcategoryCount}</IonText> subcategory and{' '}
+          <IonText color="danger">{productCount}</IonText> product
+        </p>
+        {!!subcategoryCount && !!!category.isSelected && (
           <p>
-            has <IonText color="danger">{category.productCount}</IonText> product
+            <IonText color="danger">{category.children.map(x => x.name).join(', ')}</IonText>
           </p>
-        </IonLabel>
-      </IonItem>
-    );
-  };
-
-  const getSelectedView = () => {
-    return (
-      <IonCard>
-        <IonCardHeader onClick={toggle}>
-          <IonCardTitle>{category.name}</IonCardTitle>
-        </IonCardHeader>
-        <IonCardContent>
-          <IonList>
-            {category.children.map(c => (
-              <ProductCategoryListItem key={c._id} category={c} isSelected={!!category.isSelected} />
-            ))}
-          </IonList>
-        </IonCardContent>
-      </IonCard>
-    );
-  };
-
-  return category.isSelected ? getSelectedView() : getUnselectedView();
+        )}
+      </IonLabel>
+      {!!subcategoryCount && (
+        <IonIcon icon={!!category.isSelected ? chevronUpOutline : chevronDownOutline} slot="end" />
+      )}
+    </IonItem>
+  );
 };
 
 export default ProductCategoryListItem;
