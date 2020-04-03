@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import authRouter from './auth.route';
-import productCategoryRouter from './product.category.route';
+import productCategoryRouter from './product-category.route';
 
 const router = Router();
 
