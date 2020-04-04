@@ -1,7 +1,7 @@
 import { INotification } from './../../api/models/notification';
 import { Reducer } from 'typesafe-actions';
 import { AppActionFuncType, AppActionType } from './action';
-import uuid from 'uuid';
+import { AppService } from 'src/api/services/app.service';
 
 export type AppStateType = {
   notifications: INotification[];
@@ -15,7 +15,7 @@ export const appReducer: Reducer<AppStateType, AppActionFuncType> = (state = ini
   switch (action.type) {
     case AppActionType.SHOW_NOTIFICATION: {
       const { notification } = action.payload;
-      notification.id = uuid.v4();
+      notification.id = AppService.getUID();
       const notifications = [...state.notifications];
       notification.duration = notification.duration || 4000;
       notifications.push(notification);
