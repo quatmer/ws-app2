@@ -1,6 +1,7 @@
 import { ProductCategoryDTO } from '../product-category/reducer';
+import { IProductCategory } from '@shared/models/product-category';
 
-export const findAndToggleCategory = (id: string, categories: ProductCategoryDTO[]): ProductCategoryDTO[] => {
+const findAndToggleCategory = (id: string, categories: ProductCategoryDTO[]): ProductCategoryDTO[] => {
   const toggledCategories = [...categories];
   categories.forEach(category => {
     if (category._id === id) {
@@ -13,3 +14,17 @@ export const findAndToggleCategory = (id: string, categories: ProductCategoryDTO
 
   return toggledCategories;
 };
+
+export const deleteEmptyIds = (category: IProductCategory) => {
+  if (!category._id) {
+    delete category._id;
+  }
+  category.children.forEach(child => deleteEmptyIds(child));
+};
+
+const ProductCategoryUtil = {
+  findAndToggleCategory,
+  deleteEmptyIds,
+};
+
+export default ProductCategoryUtil;
