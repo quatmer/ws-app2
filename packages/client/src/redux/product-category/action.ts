@@ -3,9 +3,12 @@ import { ActionsUnion } from '../helper/type.helper';
 import { IProductCategory } from '@shared/models/product-category';
 
 export enum ProductCategoryActionType {
-  CREATE_UPDATE = '[product category]: CREATE_UPDATE',
-  CREATE_UPDATE_SUCCESS = '[product category]: CREATE_UPDATE_SUCCESS',
-  CREATE_UPDATE_ERROR = '[product category]: CREATE_UPDATE_ERROR',
+  CREATE = '[product category]: CREATE',
+  CREATE_SUCCESS = '[product category]: CREATE_SUCCESS',
+  CREATE_ERROR = '[product category]: CREATE_ERROR',
+  UPDATE = '[product category]: UPDATE',
+  UPDATE_SUCCESS = '[product category]: UPDATE_SUCCESS',
+  UPDATE_ERROR = '[product category]: UPDATE_ERROR',
   DELETE = '[product category]: DELETE',
   DELETE_SUCCESS = '[product category]: DELETE_SUCCESS',
   DELETE_ERROR = '[product category]: DELETE_ERROR',
@@ -16,11 +19,15 @@ export enum ProductCategoryActionType {
 }
 
 export const ProductCategoryActions = {
-  createUpdate: (category: IProductCategory) => action(ProductCategoryActionType.CREATE_UPDATE, { category }),
-  createUpdateSuccess: (category: IProductCategory, refId: string) =>
-    action(ProductCategoryActionType.CREATE_UPDATE_SUCCESS, { category, refId }),
-  createUpdateError: (message: string, category: IProductCategory, refId: string) =>
-    action(ProductCategoryActionType.CREATE_UPDATE_ERROR, { message, category, refId }),
+  create: (category: IProductCategory, refId: string) => action(ProductCategoryActionType.CREATE, { category, refId }),
+  createSuccess: (category: IProductCategory, refId: string) =>
+    action(ProductCategoryActionType.CREATE_SUCCESS, { category, refId }),
+  createError: (message: string, refId: string) => action(ProductCategoryActionType.CREATE_ERROR, { message, refId }),
+
+  update: (category: IProductCategory) => action(ProductCategoryActionType.UPDATE, { category }),
+  updateSuccess: (category: IProductCategory) => action(ProductCategoryActionType.UPDATE_SUCCESS, { category }),
+  updateError: (message: string, category: IProductCategory) =>
+    action(ProductCategoryActionType.UPDATE_ERROR, { message, category }),
 
   delete: (id: string) => action(ProductCategoryActionType.DELETE, { id }),
   deleteSuccess: (id: string) => action(ProductCategoryActionType.DELETE_SUCCESS, { id }),

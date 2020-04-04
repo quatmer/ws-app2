@@ -18,7 +18,7 @@ const TightModal: FC<Props> = props => {
   const ref = useRef<HTMLIonModalElement | null>();
 
   return (
-    <IonModal id="tight-modal" isOpen={props.isOpen} onDidDismiss={props.onDidDismiss}>
+    <IonModal id="tight-modal" isOpen={props.isOpen} onDidDismiss={props.onDidDismiss} ref={r => (ref.current = r)}>
       <IonPage>
         <IonHeader>
           <IonToolbar color="tertiary">
