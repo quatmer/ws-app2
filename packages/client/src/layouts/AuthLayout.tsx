@@ -6,8 +6,8 @@ import { useTypeSelector } from 'src/redux/helper/selector.helper';
 
 type Props = { redirectPath?: string };
 
-const AuthLayout: FC<Props> = (props) => {
-  const { redirectPath = '/' }=props;
+const AuthLayout: FC<Props> = props => {
+  const { redirectPath = '/' } = props;
   const { user } = useTypeSelector(s => s.authState);
   const history = useHistory();
   useEffect(() => {

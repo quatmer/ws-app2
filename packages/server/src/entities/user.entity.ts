@@ -40,12 +40,12 @@ export interface UserDocument extends IUserDocument, Document {
 }
 
 // check password is valid
-UserSchema.methods.isPasswordValid = function(password: string): boolean {
+UserSchema.methods.isPasswordValid = function (password: string): boolean {
   return bcrypt.compareSync(password, this.password);
 };
 
 // crypt password before save
-UserSchema.pre<UserDocument>('save', function(next) {
+UserSchema.pre<UserDocument>('save', function (next) {
   if (this.password && this.isModified('password')) {
     this.password = hashSync(this.password);
   }
@@ -54,7 +54,7 @@ UserSchema.pre<UserDocument>('save', function(next) {
 
 // Delete password before sending user model
 UserSchema.set('toJSON', {
-  transform: function(_, ret) {
+  transform: function (_, ret) {
     delete ret.password;
     return ret;
   },

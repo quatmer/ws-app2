@@ -55,8 +55,7 @@ const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage }) => {
                   routerLink={appPage.url}
                   routerDirection="none"
                   lines="none"
-                  detail={false}
-                >
+                  detail={false}>
                   <IonIcon slot="start" icon={appPage.iosIcon} />
                   <IonLabel>{appPage.title}</IonLabel>
                 </IonItem>
