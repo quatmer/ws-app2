@@ -6,5 +6,6 @@ const productCategoryRouter = Router();
 
 productCategoryRouter.post('/', [checkAuthentication], ProductCategoryController.update);
 productCategoryRouter.get('/', [checkAuthentication], ProductCategoryController.get);
+productCategoryRouter.delete('/:id', [checkAuthentication], ProductCategoryController.deleteModel);
 
 export default productCategoryRouter;
