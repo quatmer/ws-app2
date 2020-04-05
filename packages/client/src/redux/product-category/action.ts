@@ -19,7 +19,7 @@ export enum ProductCategoryActionType {
 }
 
 export const ProductCategoryActions = {
-  create: (category: IProductCategory, refId: string) => action(ProductCategoryActionType.CREATE, { category, refId }),
+  create: (category: IProductCategory) => action(ProductCategoryActionType.CREATE, { category }),
   createSuccess: (category: IProductCategory, refId: string) =>
     action(ProductCategoryActionType.CREATE_SUCCESS, { category, refId }),
   createError: (message: string, refId: string) => action(ProductCategoryActionType.CREATE_ERROR, { message, refId }),
@@ -37,8 +37,6 @@ export const ProductCategoryActions = {
   getListSuccess: (categories: IProductCategory[]) =>
     action(ProductCategoryActionType.GET_LIST_SUCCESS, { categories }),
   getListError: (message: string) => action(ProductCategoryActionType.GET_LIST_ERROR, { message }),
-
-  toggleSelect: (id: string) => action(ProductCategoryActionType.TOGGLE_SELECT, { id }),
 };
 
 export type ProductCategoryFuncType = ActionsUnion<typeof ProductCategoryActions>;
