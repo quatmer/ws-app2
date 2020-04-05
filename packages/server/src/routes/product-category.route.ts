@@ -4,8 +4,9 @@ import { ProductCategoryController } from '../controllers/product-category.contr
 
 const productCategoryRouter = Router();
 
-productCategoryRouter.post('/', [checkAuthentication], ProductCategoryController.update);
-productCategoryRouter.get('/', [checkAuthentication], ProductCategoryController.get);
-productCategoryRouter.delete('/:id', [checkAuthentication], ProductCategoryController.deleteModel);
+productCategoryRouter.post('/', [checkAuthentication], ProductCategoryController.createCategory);
+productCategoryRouter.post('/:id', [checkAuthentication], ProductCategoryController.updateCategory);
+productCategoryRouter.get('/', [checkAuthentication], ProductCategoryController.getCategories);
+productCategoryRouter.delete('/:id', [checkAuthentication], ProductCategoryController.deleteCategory);
 
 export default productCategoryRouter;
