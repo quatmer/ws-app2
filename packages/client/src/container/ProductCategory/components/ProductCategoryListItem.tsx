@@ -1,6 +1,5 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { IonItem, IonLabel, IonText, IonList, IonIcon, IonButtons, IonButton } from '@ionic/react';
-import { ProductCategoryDTO } from 'src/redux/product-category/reducer';
 import { useDispatch } from 'react-redux';
 import { ProductCategoryActions } from 'src/redux/product-category/action';
 import classNames from 'classnames';
@@ -15,40 +14,20 @@ import {
 import TightModal from 'src/components/TightModal';
 import ProductCategoryEdit from './ProductCategoryEdit';
 import { AppService } from 'src/api/services/app.service';
+import { ProductCategoryNode } from 'src/api/dto/product-category.dto';
 
-type Props = { category: ProductCategoryDTO };
-const ProductCategoryListItem = ({ category }: Props) => {
-  const subcategoriesList = () => (
-    <div id="subcategory-list">
-      <IonList>
-        {category.children.map(sc => {
-          return <ProductCategoryListItem key={sc._id || AppService.getUID()} category={sc} />;
-        })}
-      </IonList>
-    </div>
-  );
-
-  return (
-    <div id="product-category">
-      <Item category={category} />
-      {!!category.children.length && !!category.isSelected && subcategoriesList()}
-    </div>
-  );
-};
-
-type State = { parent?: ProductCategoryDTO; child?: ProductCategoryDTO; showForm: boolean };
-const Item: FC<Props> = ({ category }) => {
-  const [state, setState] = useState<State>({ showForm: false });
-
+type Props = { category: ProductCategoryNode; onToggle: (category: ProductCategoryNode) => void };
+type State = { parentId: string | null; child?: ProductCategoryNode; showForm: boolean };
+const ProductCategoryListItem = ({ category, onToggle }: Props) => {
+  const [state, setState] = useState<State>({ showForm: false, parentId: null });
   const dispatch = useDispatch();
 
-  const subcategoryCount = category.children.length;
+  const subcategoryCount = category.subCategories.length;
   const { productCount = 0, name } = category;
 
   const toggle = () => {
-    if (category._id) {
-      dispatch(ProductCategoryActions.toggleSelect(category._id));
-    }
+    onToggle(category);
+    category.isSelected = !category.isSelected;
   };
 
   const actionButtons = (
@@ -59,7 +38,7 @@ const Item: FC<Props> = ({ category }) => {
         color="success"
         onClick={event => {
           event.stopPropagation();
-          setState({ parent: category, showForm: true });
+          setState({ parentId: category._id, showForm: true });
         }}>
         <IonIcon slot="icon-only" icon={add} />
       </IonButton>
@@ -70,10 +49,11 @@ const Item: FC<Props> = ({ category }) => {
         color="tertiary"
         onClick={event => {
           event.stopPropagation();
-          setState({ child: category, showForm: true });
+          setState({ child: category, showForm: true, parentId: null });
         }}>
         <IonIcon slot="icon-only" icon={createOutline} />
       </IonButton>
+
       {/* delete button */}
       <IonButton
         fill="clear"
@@ -88,12 +68,16 @@ const Item: FC<Props> = ({ category }) => {
   );
 
   const createUpdateModal = (
-    <TightModal title="new product category" isOpen={state.showForm} onDidDismiss={() => setState({ showForm: false })}>
+    <TightModal
+      title="new product category"
+      description={`You will create new category in ${category.name} `}
+      isOpen={state.showForm}
+      onDidDismiss={() => setState({ showForm: false, parentId: null })}>
       <ProductCategoryEdit
-        parentCategory={state.parent}
         category={state.child}
+        parentId={state.parentId}
         onCloseForm={() => {
-          setState({ showForm: false });
+          setState({ showForm: false, parentId: null });
         }}
       />
     </TightModal>
@@ -110,8 +94,18 @@ const Item: FC<Props> = ({ category }) => {
       }
     }
   };
+  const subcategoriesList = () => (
+    <div id="subcategory-list">
+      <IonList>
+        {category.subCategories.map(sc => {
+          return <ProductCategoryListItem key={sc._id || AppService.getUID()} category={sc} onToggle={onToggle} />;
+        })}
+      </IonList>
+    </div>
+  );
+
   return (
-    <>
+    <div id="product-category">
       {createUpdateModal}
       <IonItem
         id="product-category-item"
@@ -125,16 +119,18 @@ const Item: FC<Props> = ({ category }) => {
             has <IonText color="danger">{subcategoryCount}</IonText> subcategory and{' '}
             <IonText color="danger">{productCount}</IonText> product
           </p>
+          {/* <p>{JSON.stringify(category.isSelected)}</p> */}
           {!!subcategoryCount && !!!category.isSelected && (
             <p>
-              <IonText color="danger">{category.children.map(x => x.name).join(', ')}</IonText>
+              <IonText color="danger">{category.subCategories.map(x => x.name).join(', ')}</IonText>
             </p>
           )}
         </IonLabel>
 
         {actionButtons}
       </IonItem>
-    </>
+      {!!category.subCategories.length && !!category.isSelected && subcategoriesList()}
+    </div>
   );
 };
 
