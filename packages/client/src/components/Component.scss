@@ -18,3 +18,39 @@
     background-color: whitesmoke; // rgba(255, 255, 224, 0.424);
   }
 }
+
+#tight-modal {
+  #modal {
+    position: relative;
+    // padding: 5px;
+    background-color: white;
+    border-radius: 15px;
+
+    #toolbar {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgb(218, 77, 77);
+
+      #title {
+        color: white;
+        margin-left: 30px;
+      }
+    }
+
+    #content {
+      padding: 10px;
+      #description {
+        padding: 5px 25px;
+      }
+    }
+  }
+  .modal-wrapper.sc-ion-modal-md {
+    background-color: transparent;
+    --box-shadow: none;
+    --max-width: 80vw;
+    // margin-bottom: 250px;
+  }
+}
