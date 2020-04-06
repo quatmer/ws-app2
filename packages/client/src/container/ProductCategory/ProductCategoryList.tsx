@@ -6,9 +6,10 @@ import { useDispatch } from 'react-redux';
 import { ProductCategoryActions } from '../../redux/product-category/action';
 import { ProductCategoryNode } from 'src/api/dto/product-category.dto';
 import ProductCategoryServices from 'src/api/services/product-category.service';
+import Loading from 'src/components/Loading';
 
 const ProductCategoryList = () => {
-  const { categories } = useTypeSelector(c => c.productCategoryState);
+  const { categories, loading } = useTypeSelector(c => c.productCategoryState);
   const [categoryTree, setCategoryTree] = useState<ProductCategoryNode[]>([]);
   const dispatch = useDispatch();
 
@@ -27,7 +28,9 @@ const ProductCategoryList = () => {
     setCategoryTree(tree);
   };
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div id="product-category-list">
       {categoryTree.map(c => {
         return <ProductCategoryListItem key={c._id} category={c} onToggle={handleOnToggle} />;
