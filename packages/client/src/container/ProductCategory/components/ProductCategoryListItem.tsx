@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { IonItem, IonLabel, IonText, IonList, IonIcon, IonButtons, IonButton } from '@ionic/react';
 import { useDispatch } from 'react-redux';
 import { ProductCategoryActions } from 'src/redux/product-category/action';
