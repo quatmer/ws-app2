@@ -1,8 +1,9 @@
 import { NextFunction, Response, Request } from 'express';
 import { HttpError } from '../util/HttpError';
+import { IErrorResponse } from '@shared/models/error-response';
 
 export const handleRouteError = (_: Request, __: Response, next: NextFunction) => {
-  const error = new HttpError('This route not exist', 404);
+  const error = new HttpError('This route not found.', 404);
   next(error);
 };
 
@@ -14,13 +15,11 @@ export const handleError = (error: HttpError, _: Request, res: Response, next: N
   console.log(error.status + ':', error.message);
 
   const status = error.status || 500;
-  const message = error.message || 'Something went wrong';
+  const message = error.message || 'Something went wrong.';
   const hasError = true;
 
+  const response: IErrorResponse = { message, hasError };
+
   res.statusMessage = error.message;
-  res.status(status).send({
-    status,
-    message,
-    hasError,
-  });
+  res.status(status).send(response);
 };

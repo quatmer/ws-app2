@@ -30,8 +30,13 @@ const ProductCategoryPage = () => {
       </IonHeader>
       <IonContent>
         <ProductCategoryList />
-        <TightModal title="new product category" isOpen={showForm} onDidDismiss={() => setShowForm(false)}>
+        <TightModal
+          title="new product category"
+          description="You will create root category"
+          isOpen={showForm}
+          onDidDismiss={() => setShowForm(false)}>
           <ProductCategoryEdit
+            parentId={null}
             onCloseForm={() => {
               setShowForm(false);
             }}

@@ -1,30 +1,21 @@
-import { ProductCategoryDTO } from '../product-category/reducer';
-import { IProductCategory } from '@shared/models/product-category';
+import { ProductCategoryNode } from 'src/api/dto/product-category.dto';
 
-const findAndToggleCategory = (id: string, categories: ProductCategoryDTO[]): ProductCategoryDTO[] => {
+const findAndToggleCategory = (id: string, categories: ProductCategoryNode[]): ProductCategoryNode[] => {
   const toggledCategories = [...categories];
   categories.forEach(category => {
     if (category._id === id) {
       categories.filter(c => c._id !== id).forEach(c => (c.isSelected = false));
       category.isSelected = !!!category.isSelected;
     } else {
-      findAndToggleCategory(id, category.children);
+      findAndToggleCategory(id, category.subCategories);
     }
   });
 
   return toggledCategories;
 };
 
-export const deleteEmptyIds = (category: IProductCategory) => {
-  if (!category._id) {
-    delete category._id;
-  }
-  category.children.forEach(child => deleteEmptyIds(child));
-};
-
 const ProductCategoryUtil = {
   findAndToggleCategory,
-  deleteEmptyIds,
 };
 
 export default ProductCategoryUtil;

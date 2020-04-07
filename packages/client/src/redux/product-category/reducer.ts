@@ -1,13 +1,10 @@
 import { Reducer } from 'typesafe-actions';
 import { ProductCategoryActionType, ProductCategoryFuncType } from './action';
 import { IProductCategory } from '@shared/models/product-category';
-import ProductCategoryUtil from '../utils/product-category';
-
-export type ProductCategoryDTO = IProductCategory & { isSelected?: boolean };
 
 export type ProductCategoryStateType = {
   loading: boolean;
-  categories: ProductCategoryDTO[];
+  categories: IProductCategory[];
   error: string | null;
 };
 
@@ -26,7 +23,8 @@ export const productCategoryReducer: Reducer<ProductCategoryStateType, ProductCa
       const { category } = action.payload;
       const categories = [...state.categories];
       categories.push(category);
-      return { ...state, categories: [...categories], loading: true, error: null };
+
+      return { ...state, categories, loading: true, error: null };
     }
     case ProductCategoryActionType.CREATE_SUCCESS: {
       const { category, refId } = action.payload;
@@ -36,13 +34,13 @@ export const productCategoryReducer: Reducer<ProductCategoryStateType, ProductCa
       if (newCatIndex > -1) {
         categories[newCatIndex] = category;
       }
-      return { ...state, categories: [...categories], loading: false, error: null };
+      return { ...state, categories, loading: false, error: null };
     }
     case ProductCategoryActionType.CREATE_ERROR: {
       const { message, refId } = action.payload;
       let categories = [...state.categories];
       categories = categories.filter(c => c._id !== refId);
-      return { ...state, loading: false, categories: [...categories], error: message };
+      return { ...state, loading: false, categories, error: message };
     }
 
     case ProductCategoryActionType.UPDATE: {
@@ -52,7 +50,7 @@ export const productCategoryReducer: Reducer<ProductCategoryStateType, ProductCa
       if (index !== -1) {
         categories[index] = category;
       }
-      return { ...state, categories: [...categories], loading: true, error: null };
+      return { ...state, categories, loading: true, error: null };
     }
     case ProductCategoryActionType.UPDATE_SUCCESS: {
       const { category } = action.payload;
@@ -62,7 +60,7 @@ export const productCategoryReducer: Reducer<ProductCategoryStateType, ProductCa
         categories[index] = category;
       }
 
-      return { ...state, categories: [...categories], loading: false, error: null };
+      return { ...state, categories, loading: false, error: null };
     }
     case ProductCategoryActionType.UPDATE_ERROR: {
       const { message, category } = action.payload;
@@ -72,7 +70,7 @@ export const productCategoryReducer: Reducer<ProductCategoryStateType, ProductCa
       if (index !== -1) {
         categories[index] = category;
       }
-      return { ...state, loading: false, categories: [...categories], error: message };
+      return { ...state, loading: false, categories, error: message };
     }
 
     case ProductCategoryActionType.DELETE: {
@@ -84,7 +82,7 @@ export const productCategoryReducer: Reducer<ProductCategoryStateType, ProductCa
       const index = categories.findIndex(c => c._id === id);
       categories.splice(index, 1);
 
-      return { ...state, loading: false, categories: [...categories], error: null };
+      return { ...state, loading: false, categories, error: null };
     }
     case ProductCategoryActionType.DELETE_ERROR: {
       const { message } = action.payload;
@@ -95,18 +93,11 @@ export const productCategoryReducer: Reducer<ProductCategoryStateType, ProductCa
     }
     case ProductCategoryActionType.GET_LIST_SUCCESS: {
       const { categories } = action.payload;
-      return { ...state, loading: false, categories: [...categories], error: null };
+      return { ...state, loading: false, categories, error: null };
     }
     case ProductCategoryActionType.GET_LIST_ERROR: {
       const { message } = action.payload;
       return { ...state, loading: false, error: message };
-    }
-
-    case ProductCategoryActionType.TOGGLE_SELECT: {
-      const { id } = action.payload;
-      const categories = [...ProductCategoryUtil.findAndToggleCategory(id, state.categories)];
-
-      return { ...state, categories };
     }
     default:
       return { ...state };
