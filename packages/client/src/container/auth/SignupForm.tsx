@@ -13,17 +13,15 @@ import {
   IonNote,
   IonSpinner,
 } from '@ionic/react';
-import { useTypeSelector } from 'src/redux/helper/selector.helper';
-import { useDispatch } from 'react-redux';
-import { AuthActions } from 'src/redux/auth/action';
+import { useServices } from 'src/api/context/service.context';
 
 type State = { username: string; password: string; rePassword: string };
 
 const SignupForm = () => {
-  const dispatch = useDispatch();
-  const { loading } = useTypeSelector(s => s.authState);
   const [state, setState] = useState<State>({ username: 'quatmer', password: '4mer', rePassword: '4mer' });
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { AuthService } = useServices();
 
   useEffect(() => {
     console.log(state.password, state.rePassword);
@@ -34,8 +32,11 @@ const SignupForm = () => {
     }
   }, [state.password, state.rePassword]);
 
-  const register = () => {
-    dispatch(AuthActions.register(state.username, state.password));
+  const handleRegister = async () => {
+    setLoading(true);
+    const { username, password } = state;
+    await AuthService.register(username, password);
+    setLoading(false);
   };
 
   return (
@@ -85,7 +86,7 @@ const SignupForm = () => {
           </IonItem>
         </IonList>
         <div id="auth-button-container" className="full-size content-center">
-          <IonButton color="tertiary" disabled={!!errorMessage || loading} onClick={register}>
+          <IonButton color="tertiary" disabled={!!errorMessage || loading} onClick={handleRegister}>
             {loading ? <IonSpinner name="dots" /> : 'Signup'}
           </IonButton>
         </div>

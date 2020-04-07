@@ -3,18 +3,12 @@ import { ActionsUnion } from '../helper/type.helper';
 import { IUser } from '@shared/models/user';
 
 export enum AuthActionType {
-  LOGIN = '[auth]: LOGIN',
-  REGISTER = '[auth]: REGISTER',
-  AUTH_SUCCESS = '[auth]:AUTH_SUCCESS',
-  AUTH_FAILED = '[auth]: AUTH_FAILED',
+  AUTHENTICATE = '[auth]: AUTHENTICATE',
   LOGOUT = '[auth]: LOGOUT',
 }
 
 export const AuthActions = {
-  login: (username: string, password: string) => action(AuthActionType.LOGIN, { username, password }),
-  register: (username: string, password: string) => action(AuthActionType.REGISTER, { username, password }),
-  authSuccess: (user: IUser) => action(AuthActionType.AUTH_SUCCESS, { user }),
-  authError: (message: string) => action(AuthActionType.AUTH_FAILED, { message }),
+  authenticate: (user: IUser) => action(AuthActionType.AUTHENTICATE, { user }),
   logout: () => action(AuthActionType.LOGOUT),
 };
 

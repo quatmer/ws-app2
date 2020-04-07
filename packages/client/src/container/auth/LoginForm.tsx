@@ -12,11 +12,9 @@ import {
   IonButton,
   IonSpinner,
 } from '@ionic/react';
-import { useDispatch } from 'react-redux';
-import { AuthActions } from 'src/redux/auth/action';
-import { useTypeSelector } from 'src/redux/helper/selector.helper';
 import { useLocation } from 'react-router';
 import AuthLayout from 'src/layouts/AuthLayout';
+import { useServices } from 'src/api/context/service.context';
 
 type State = {
   username: string;
@@ -24,17 +22,20 @@ type State = {
 };
 const LoginForm = () => {
   const [state, setState] = useState<State>({ username: 'quatmer', password: '4mer' });
-  const { loading } = useTypeSelector(s => s.authState);
+  const [loading, setLoading] = useState(false);
+  const { AuthService } = useServices();
   const location = useLocation<{ from: Location }>();
-  const dispatch = useDispatch();
 
   let redirectPath = '/';
   if (!!location.state && location.state.from) {
     redirectPath = location.state.from.pathname;
   }
 
-  const login = () => {
-    dispatch(AuthActions.login(state.username, state.password));
+  const handleLogin = async () => {
+    setLoading(true);
+    const { username, password } = state;
+    await AuthService.login(username, password);
+    setLoading(false);
   };
 
   return (
@@ -71,7 +72,7 @@ const LoginForm = () => {
             </IonItem>
           </IonList>
           <div id="auth-button-container" className="full-size content-center">
-            <IonButton color="tertiary" onClick={login} disabled={loading}>
+            <IonButton color="tertiary" onClick={handleLogin} disabled={loading}>
               {loading ? <IonSpinner name="dots" /> : 'Login'}
             </IonButton>
           </div>

@@ -4,15 +4,11 @@ import { AuthServices } from 'src/api/services/auth.service';
 import { IUser } from '@shared/models/user';
 
 export type AuthStateType = {
-  loading: boolean;
   user: IUser | null;
-  error: string | null;
 };
 
 const initialState: AuthStateType = {
-  loading: false,
   user: AuthServices.getUser(),
-  error: null,
 };
 
 export const authReducer: Reducer<AuthStateType, AuthActionFuncType> = (
@@ -20,23 +16,13 @@ export const authReducer: Reducer<AuthStateType, AuthActionFuncType> = (
   action,
 ): AuthStateType => {
   switch (action.type) {
-    case AuthActionType.LOGIN: {
-      return { ...state, loading: true, user: null, error: null };
-    }
-    case AuthActionType.REGISTER: {
-      return { ...state, loading: true, user: null, error: null };
-    }
-    case AuthActionType.AUTH_SUCCESS: {
+    case AuthActionType.AUTHENTICATE: {
       const { user } = action.payload;
-      return { ...state, loading: false, user: user, error: null };
-    }
-    case AuthActionType.AUTH_FAILED: {
-      const { message } = action.payload;
-      return { ...state, loading: false, user: null, error: message };
+      return { ...state, user: user };
     }
 
     case AuthActionType.LOGOUT: {
-      return { ...state, loading: false, user: null, error: null };
+      return { ...state, user: null };
     }
     default:
       return { ...state };
