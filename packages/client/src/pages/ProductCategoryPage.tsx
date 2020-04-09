@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ProductCategoryList from 'src/container/ProductCategory/ProductCategoryList';
-import {
+import
+{
   IonPage,
   IonHeader,
   IonToolbar,
@@ -11,13 +12,25 @@ import {
   IonFab,
   IonFabButton,
   IonIcon,
+  IonButton,
 } from '@ionic/react';
-import { add } from 'ionicons/icons';
+import { add, logOutSharp } from 'ionicons/icons';
 import TightModal from 'src/components/TightModal';
 import ProductCategoryEdit from 'src/container/ProductCategory/components/ProductCategoryEdit';
+import { AuthActions } from 'src/redux/auth/action';
+import { useDispatch } from 'react-redux';
 
-const ProductCategoryPage = () => {
-  const [showForm, setShowForm] = useState(false);
+const ProductCategoryPage = () =>
+{
+
+  const [ showForm, setShowForm ] = useState( false );
+
+  const dispatch = useDispatch();
+  const logout = () =>
+  {
+    dispatch( AuthActions.logout() );
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -26,6 +39,12 @@ const ProductCategoryPage = () => {
             <IonMenuButton />
           </IonButtons>
           <IonTitle>Product Category Page</IonTitle>
+          <IonButtons slot="end">
+            <IonButton onClick={logout}>
+              Logout
+              <IonIcon slot="end" icon={logOutSharp} />
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -34,16 +53,17 @@ const ProductCategoryPage = () => {
           title="new product category"
           description="You will create root category"
           isOpen={showForm}
-          onDidDismiss={() => setShowForm(false)}>
+          onDidDismiss={() => setShowForm( false )}>
           <ProductCategoryEdit
             parentId={null}
-            onCloseForm={() => {
-              setShowForm(false);
+            onCloseForm={() =>
+            {
+              setShowForm( false );
             }}
           />
         </TightModal>
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton color="success" onClick={() => setShowForm(true)}>
+          <IonFabButton color="success" onClick={() => setShowForm( true )}>
             <IonIcon icon={add} />
           </IonFabButton>
         </IonFab>

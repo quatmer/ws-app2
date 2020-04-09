@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { mailOutline, mailSharp, gridOutline, gridSharp } from 'ionicons/icons';
+import { mailOutline, mailSharp, gridOutline, gridSharp, tvOutline, tvSharp } from 'ionicons/icons';
 import './SideMenu.scss';
 
 interface MenuProps extends RouteComponentProps {
@@ -38,6 +38,12 @@ const appPages: AppPage[] = [
     iosIcon: gridOutline,
     mdIcon: gridSharp,
   },
+  {
+    title: 'Product Brand',
+    url: '/product-brand',
+    iosIcon: tvOutline,
+    mdIcon: tvSharp,
+  },
 ];
 
 const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage }) => {
@@ -45,7 +51,7 @@ const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage }) => {
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
-          <IonListHeader>quatmer</IonListHeader>
+          <IonListHeader>Quatmer Software</IonListHeader>
           <IonNote>quatmer@quatmer.com</IonNote>
           {appPages.map((appPage, index) => {
             return (

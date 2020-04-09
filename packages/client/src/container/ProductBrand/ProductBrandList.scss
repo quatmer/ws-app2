@@ -1,0 +1,21 @@
+#product-brand-list {
+    margin-left: 10px;
+    #product-brand-item {
+      .isSelected {
+        border-bottom: lightcoral solid 0.8px;
+      }
+      .canClick {
+        cursor: pointer;
+      }
+    }
+    
+    #action-buttons {
+      display: none;
+    }
+    #product-brand-item:hover {
+      #action-buttons {
+        display: block;
+      }
+    }
+  }
+  

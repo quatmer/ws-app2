@@ -9,8 +9,10 @@ import ErrorPage from 'src/pages/ErrorPage';
 import AuthRoute from './AuthRoute';
 import SideMenu from 'src/router/SideMenu';
 import ProductCategoryPage from 'src/pages/ProductCategoryPage';
+import ProductBrandPage from 'src/pages/ProductBrandPage';
 
-const Routing = () => {
+const Routing = () =>
+{
   return (
     <IonReactRouter>
       <Switch>
@@ -22,6 +24,7 @@ const Routing = () => {
             <Route exact path="/" render={() => <Redirect to="/home" />} />
             <AuthRoute path="/home" exact={true} component={HomePage} />
             <AuthRoute path="/product-category" exact={true} component={ProductCategoryPage} />
+            <AuthRoute path="/product-brand" exact={true} component={ProductBrandPage} />
             <Route path="/error" component={ErrorPage} />
             <Redirect to="/error" />
           </IonRouterOutlet>
