@@ -9,44 +9,37 @@ import { IProductBrand } from '@shared/models/product-brand';
 import { ProductBrandActions } from 'src/redux/product-brand/action';
 
 type Props = {
-    brand?: IProductBrand;
+    brand: IProductBrand;
     onCloseForm: () => void;
 };
 const ProductBrandCreateEdit = ( { brand, onCloseForm }: Props ) =>
 {
     const { loading, error } = useTypeSelector( s => s.productBrandState );
-    const [ brandName, setBrandName ] = useState( brand?.name || '' );
-    const [ formType, setFormType ] = useState<'create' | 'update'>( 'create' );
+    const [ brandName, setBrandName ] = useState( brand.name );
+    const [ processType, setProcessType ] = useState<'create' | 'update'>( 'create' );
     const dispatch = useDispatch();
 
     useEffect( () =>
     {
         if ( !!brand )
         {
-            setFormType( 'update' );
+            setProcessType( 'update' );
         }
         //eslint-disable-next-line
     }, [] );
 
-    const refLoading = useRef( loading );
     useEffect( () =>
     {
-        console.log( refLoading, loading, error );
-
-        if ( refLoading.current && !loading && error === null )
+        if ( !loading && error === null )
         {
             onCloseForm();
-        } else
-        {
-            refLoading.current = loading;
-        }
-
+        } 
         //eslint-disable-next-line
     }, [ loading ] );
 
     const createUpdate = () =>
     {
-        if ( formType === 'create' )
+        if ( processType === 'create' )
         {
             dispatch(
                 ProductBrandActions.create( {
@@ -56,7 +49,7 @@ const ProductBrandCreateEdit = ( { brand, onCloseForm }: Props ) =>
             );
         }
 
-        if ( formType === 'update' )
+        if ( processType === 'update' )
         {
             dispatch(
                 ProductBrandActions.update( {
@@ -85,8 +78,8 @@ const ProductBrandCreateEdit = ( { brand, onCloseForm }: Props ) =>
                         <IonSpinner name="dots" />
                     ) : (
                             <>
-                                {formType === 'update' ? 'Update' : 'Create'}
-                                <IonIcon slot="end" icon={formType === 'update' ? sync : createOutline} />
+                                {processType === 'update' ? 'Update' : 'Create'}
+                                <IonIcon slot="end" icon={processType === 'update' ? sync : createOutline} />
                             </>
                         )}
                 </IonButton>
