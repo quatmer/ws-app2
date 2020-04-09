@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IProductBrand } from '@shared/models/product-brand';
 import { useDispatch } from 'react-redux';
-import { IonButtons, IonButton, IonIcon, IonItem, IonLabel, IonText } from '@ionic/react';
+import { IonButtons, IonButton, IonIcon, IonItem, IonLabel, IonText, IonAlert } from '@ionic/react';
 import { createOutline, trash, tvOutline } from 'ionicons/icons';
 import { ProductBrandActions } from 'src/redux/product-brand/action';
 import TightModal from 'src/components/TightModal';
@@ -13,6 +13,9 @@ type State = { showForm: boolean };
 
 const ProductBrandListItem = (prop: Props) => {
   const [state, setState] = useState<State>({ showForm: false });
+
+  const [showAlert, setShowAlert] = useState(false);
+
   const dispatch = useDispatch();
 
   const actionButtons = (
@@ -29,7 +32,7 @@ const ProductBrandListItem = (prop: Props) => {
       </IonButton>
 
       {/* delete button */}
-      <IonButton
+      {/* <IonButton
         fill="clear"
         color="danger"
         onClick={event => {
@@ -37,17 +40,32 @@ const ProductBrandListItem = (prop: Props) => {
           dispatch(ProductBrandActions.delete(prop.brand._id));
         }}>
         <IonIcon slot="icon-only" icon={trash} />
+      </IonButton> */}
+
+      <IonButton onClick={() => setShowAlert(true)} expand="block">
+        <IonIcon slot="icon-only" color="danger" icon={trash} />
       </IonButton>
+
+      <IonAlert
+        isOpen={showAlert}
+        onDidDismiss={() => setShowAlert(false)}
+        header={'Brand to be deleted: ' + prop.brand.name}
+        message={'Are you sure?'}
+        buttons={[
+          {
+            text: 'Delete',
+            handler: () => {
+              dispatch(ProductBrandActions.delete(prop.brand._id));
+              console.log('Brand deleted successfully ...');
+            },
+          },
+          {
+            text: 'Cancel',
+          },
+        ]}
+      />
     </IonButtons>
   );
-
-  // <TightModal
-  //   title="Create new product brand"
-  //   // description="Enter new brand name ..."
-  //   isOpen={showForm}
-  //   onDidDismiss={() => setShowForm(false)}>
-  //   <ProductBrandCreateEdit brand={null} onCloseForm={() => setShowForm(false)} />
-  // </TightModal>;
 
   const createUpdateModal = (
     <TightModal

@@ -51,7 +51,7 @@ export const productBrandReducer: Reducer<ProductBrandStateType, ProductBrandFun
       if (index !== -1) {
         brands[index] = brand;
       }
-      return { ...state, brands, loading: false, error: null };
+      return { ...state, brands, loading: true, error: null };
     }
     case ProductBrandActionType.UPDATE_SUCCESS: {
       const { brand } = action.payload;
