@@ -14,7 +14,7 @@ const ProductBrandList = () =>
 
     useEffect( () =>
     {
-        dispatch( ProductBrandActions.getList() ); ""
+        dispatch( ProductBrandActions.getList() );
         // eslint-disable-next-line
     }, [] );
 

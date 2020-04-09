@@ -5,5 +5,4 @@ export interface IProductCategoryDocument {
   name: string;
   productCount: number;
   parentId: string | null;
-  //brandId: string | null;
 }

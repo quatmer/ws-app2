@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import
 {
@@ -20,7 +20,7 @@ import ProductBrandList from 'src/container/ProductBrand/ProductBrandList';
 const ProductBrandPage = () =>
 {
 
-    const [] = useState( false );
+    //const [] = useState( false );
 
     const dispatch = useDispatch();
     const logout = () =>
