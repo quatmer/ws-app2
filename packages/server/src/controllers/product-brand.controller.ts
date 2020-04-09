@@ -1,6 +1,6 @@
 import { HttpError } from './../util/HttpError';
 import { Request, Response, NextFunction } from 'express';
-import { ProductBrandEntity } from 'src/entities/product-brand.entity';
+import { ProductBrandEntity } from './../entities/product-brand.entity';
 
 const createBrand = async (req: Request, res: Response, next: NextFunction) => {
   const { name } = req.body;

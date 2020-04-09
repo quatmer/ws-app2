@@ -10,15 +10,16 @@ export enum ProductBrandActionType {
   UPDATE_SUCCESS = '[product brand]: UPDATE_SUCCESS',
   UPDATE_ERROR = '[product brand]: UPDATE_ERROR',
   DELETE = '[product brand]: DELETE',
-  DELETE_SUCCESS = '[product DELETE_SUCCESS',
+  DELETE_SUCCESS = '[product brand]: DELETE_SUCCESS',
   DELETE_ERROR = '[product brand]: DELETE_ERROR',
   GET_LIST = '[product brand]: GET_LIST',
-  GET_LIST_SUCCESS = '[product GET_LIST_SUCCESS',
+  GET_LIST_SUCCESS = '[product brand]: GET_LIST_SUCCESS',
   GET_LIST_ERROR = '[product brand]: GET_LIST_ERROR',
 }
 
 export const ProductBrandActions = {
   create: (brand: IProductBrand) => action(ProductBrandActionType.CREATE, { brand }),
+  //data saving differently
   createSuccess: (brand: IProductBrand, refId: string) =>
     action(ProductBrandActionType.CREATE_SUCCESS, { brand, refId }),
   createError: (message: string, refId: string) => action(ProductBrandActionType.CREATE_ERROR, { message, refId }),

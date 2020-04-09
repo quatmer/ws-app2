@@ -11,8 +11,7 @@ import SideMenu from 'src/router/SideMenu';
 import ProductCategoryPage from 'src/pages/ProductCategoryPage';
 import ProductBrandPage from 'src/pages/ProductBrandPage';
 
-const Routing = () =>
-{
+const Routing = () => {
   return (
     <IonReactRouter>
       <Switch>

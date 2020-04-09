@@ -20,6 +20,7 @@ export const productBrandReducer: Reducer<ProductBrandStateType, ProductBrandFun
 ): ProductBrandStateType => {
   switch (action.type) {
     case ProductBrandActionType.CREATE: {
+      //relationship with epic's create function
       const { brand } = action.payload;
       const brands = [...state.brands];
       brands.push(brand);

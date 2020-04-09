@@ -9,83 +9,81 @@ import { IProductBrand } from '@shared/models/product-brand';
 import { ProductBrandActions } from 'src/redux/product-brand/action';
 
 type Props = {
-    brand: IProductBrand;
-    onCloseForm: () => void;
+  brand: IProductBrand | null;
+  onCloseForm: () => void;
 };
-const ProductBrandCreateEdit = ( { brand, onCloseForm }: Props ) =>
-{
-    const { loading, error } = useTypeSelector( s => s.productBrandState );
-    const [ brandName, setBrandName ] = useState( brand.name );
-    const [ processType, setProcessType ] = useState<'create' | 'update'>( 'create' );
-    const dispatch = useDispatch();
+const ProductBrandCreateEdit = ({ brand, onCloseForm }: Props) => {
+  const { loading, error } = useTypeSelector(s => s.productBrandState);
+  const [brandName, setBrandName] = useState(brand?.name || '');
+  const [processType, setProcessType] = useState<'create' | 'update'>('create');
+  const dispatch = useDispatch();
 
-    useEffect( () =>
-    {
-        if ( !!brand )
-        {
-            setProcessType( 'update' );
-        }
-        //eslint-disable-next-line
-    }, [] );
+  useEffect(() => {
+    if (!!brand) {
+      setProcessType('update');
+    }
+    //eslint-disable-next-line
+  }, []);
 
-    useEffect( () =>
-    {
-        if ( !loading && error === null )
-        {
-            onCloseForm();
-        } 
-        //eslint-disable-next-line
-    }, [ loading ] );
+  const refLoading = useRef(loading);
+  useEffect(() => {
+    console.log(refLoading, loading, error);
 
-    const createUpdate = () =>
-    {
-        if ( processType === 'create' )
-        {
-            dispatch(
-                ProductBrandActions.create( {
-                    _id: AppService.getUID(),
-                    name: brandName,
-                } ),
-            );
-        }
+    if (refLoading.current && !loading && error === null) {
+      onCloseForm();
+    } else {
+      refLoading.current = loading;
+    }
 
-        if ( processType === 'update' )
-        {
-            dispatch(
-                ProductBrandActions.update( {
-                    ...brand!,
-                    name: brandName,
-                } ),
-            );
-        }
-    };
+    //eslint-disable-next-line
+  }, [loading]);
 
-    return (
-        <GridLayout>
-            <IonCol size="12">
-                <IonList>
-                    <IonItem>
-                        <IonLabel position="floating" color="tertiary">
-                            brand name <IonText color="danger"> *</IonText>
-                        </IonLabel>
-                        <IonInput value={brandName} onIonChange={e => setBrandName( e.detail.value || '' )} />
-                    </IonItem>
-                </IonList>
-            </IonCol>
-            <IonCol size="12" class="content-center">
-                <IonButton disabled={!brandName || loading} onClick={createUpdate} class="full-width">
-                    {loading ? (
-                        <IonSpinner name="dots" />
-                    ) : (
-                            <>
-                                {processType === 'update' ? 'Update' : 'Create'}
-                                <IonIcon slot="end" icon={processType === 'update' ? sync : createOutline} />
-                            </>
-                        )}
-                </IonButton>
-            </IonCol>
-        </GridLayout>
-    );
+  const createUpdate = () => {
+    if (processType === 'create') {
+      dispatch(
+        ProductBrandActions.create({
+          _id: AppService.getUID(),
+          name: brandName,
+        }),
+      );
+    }
+
+    if (processType === 'update') {
+      dispatch(
+        ProductBrandActions.update({
+          ...brand!,
+          name: brandName,
+        }),
+      );
+    }
+  };
+
+  return (
+    <GridLayout>
+      <IonCol size="12">
+        <IonList>
+          <IonItem>
+            <IonLabel position="floating" color="tertiary">
+              Enter new brand name ...<IonText color="danger"> *</IonText>
+            </IonLabel>
+            <IonInput value={brandName} onIonChange={e => setBrandName(e.detail.value || '')} />
+          </IonItem>
+        </IonList>
+      </IonCol>
+      <IonCol size="12" class="content-center">
+        <IonButton disabled={!brandName || loading} onClick={createUpdate} class="full-width">
+          {loading ? (
+            <IonSpinner name="dots" />
+          ) : (
+            <>
+              {processType === 'update' ? 'Update' : 'Create'}
+              <IonIcon slot="end" icon={processType === 'update' ? sync : createOutline} />
+            </>
+          )}
+        </IonButton>
+      </IonCol>
+    </GridLayout>
+  );
 };
 
 export default ProductBrandCreateEdit;

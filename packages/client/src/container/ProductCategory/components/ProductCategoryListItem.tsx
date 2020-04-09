@@ -3,8 +3,7 @@ import { IonItem, IonLabel, IonText, IonList, IonIcon, IonButtons, IonButton } f
 import { useDispatch } from 'react-redux';
 import { ProductCategoryActions } from 'src/redux/product-category/action';
 import classNames from 'classnames';
-import
-{
+import {
   chevronDownOutline,
   chevronForwardOutline,
   createOutline,
@@ -37,8 +36,7 @@ const ProductCategoryListItem = ({ category, onToggle }: Props) => {
       <IonButton
         fill="clear"
         color="success"
-        onClick={event =>
-        {
+        onClick={event => {
           event.stopPropagation();
           setState({ parentId: category._id, showForm: true });
         }}>
@@ -49,8 +47,7 @@ const ProductCategoryListItem = ({ category, onToggle }: Props) => {
       <IonButton
         fill="clear"
         color="tertiary"
-        onClick={event =>
-        {
+        onClick={event => {
           event.stopPropagation();
           setState({ child: category, showForm: true, parentId: null });
         }}>
@@ -61,10 +58,9 @@ const ProductCategoryListItem = ({ category, onToggle }: Props) => {
       <IonButton
         fill="clear"
         color="danger"
-        onClick={event =>
-        {
+        onClick={event => {
           event.stopPropagation();
-          dispatch( ProductCategoryActions.delete( category._id ) );
+          dispatch(ProductCategoryActions.delete(category._id));
         }}>
         <IonIcon slot="icon-only" icon={trash} />
       </IonButton>
@@ -87,18 +83,13 @@ const ProductCategoryListItem = ({ category, onToggle }: Props) => {
     </TightModal>
   );
 
-  const getIcon = () =>
-  {
-    if ( !subcategoryCount )
-    {
+  const getIcon = () => {
+    if (!subcategoryCount) {
       return emptyIcon;
-    } else
-    {
-      if ( !!category.isSelected )
-      {
+    } else {
+      if (!!category.isSelected) {
         return chevronDownOutline;
-      } else
-      {
+      } else {
         return chevronForwardOutline;
       }
     }
@@ -120,7 +111,7 @@ const ProductCategoryListItem = ({ category, onToggle }: Props) => {
         id="product-category-item"
         onClick={toggle}
         key={category._id || AppService.getUID()}
-        className={classNames( { isSelected: !!category.isSelected, canClick: !!subcategoryCount } )}>
+        className={classNames({ isSelected: !!category.isSelected, canClick: !!subcategoryCount })}>
         <IonIcon icon={getIcon()} slot="start" />
         <IonLabel>
           <h2>{name}</h2>

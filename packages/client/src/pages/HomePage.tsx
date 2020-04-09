@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import
-{
+import {
   IonPage,
   IonHeader,
   IonTitle,
@@ -16,14 +15,12 @@ import { useDispatch } from 'react-redux';
 import { AuthActions } from 'src/redux/auth/action';
 import WideModal from 'src/components/WideModal';
 
-const HomePage = () =>
-{
-  const [ openModal, setOpenModal ] = useState( false );
+const HomePage = () => {
+  const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
 
-  const logout = () =>
-  {
-    dispatch( AuthActions.logout() );
+  const logout = () => {
+    dispatch(AuthActions.logout());
   };
 
   return (
@@ -43,8 +40,8 @@ const HomePage = () =>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <WideModal title="test" isOpen={openModal} onDidDismiss={() => setOpenModal( false )}></WideModal>
-        <IonButton class="ion-margin" onClick={() => setOpenModal( true )}>
+        <WideModal title="test" isOpen={openModal} onDidDismiss={() => setOpenModal(false)}></WideModal>
+        <IonButton class="ion-margin" onClick={() => setOpenModal(true)}>
           Show Modal
         </IonButton>
       </IonContent>

@@ -16,7 +16,7 @@ app.use(logger);
 
 //routes
 app.use(router);
-
+//app.use sequentially usage attention ..!
 // Errors
 app.use(handleRouteError);
 app.use(handleError);
