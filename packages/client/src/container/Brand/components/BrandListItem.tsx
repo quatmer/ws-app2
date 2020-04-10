@@ -1,9 +1,7 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState } from 'react'
 import { IBrand } from '@shared/models/brand'
 import { IonItem, IonButton, IonButtons, IonIcon, IonSpinner } from '@ionic/react'
 import { createOutline, trashOutline } from 'ionicons/icons'
-import { useDispatch } from 'react-redux'
-import { BrandActions } from 'src/redux/brand/action'
 import BrandEdit from './BrandEdit'
 import { useServices } from 'src/api/context/ServiceContext'
 
