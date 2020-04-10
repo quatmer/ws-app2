@@ -38,6 +38,12 @@ const appPages: AppPage[] = [
     iosIcon: gridOutline,
     mdIcon: gridSharp,
   },
+  {
+    title: 'Brand',
+    url: '/brand',
+    iosIcon: gridOutline,
+    mdIcon: gridSharp,
+  },
 ];
 
 const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage }) => {
