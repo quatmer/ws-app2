@@ -2,11 +2,25 @@ import { HttpError } from './../util/HttpError';
 import { Request, Response, NextFunction } from 'express';
 import { BrandEntity, BrandDocument } from './../entities/brand.entity';
 
+// TO DO For testing client application
+function sleep(ms: number) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
+}
+
 const createBrand = async (req: Request, res: Response, next: NextFunction) => {
   const { name } = req.body;
 
   if (!name) {
     next(new HttpError('Missing parameter.', 400));
+    return;
+  }
+
+  // TO DO For testing client application
+  await sleep(200);
+  if (name.length < 2) {
+    next(new HttpError('The brand name cannot be shorter than 2 characters ', 400));
     return;
   }
 
@@ -37,6 +51,13 @@ const updateBrand = async (req: Request, res: Response, next: NextFunction) => {
     return;
   }
 
+  // TO DO For testing client application
+  if (name.length < 2) {
+    next(new HttpError('The brand name cannot be shorter than 2 characters ', 400));
+    return;
+  }
+  await sleep(200);
+
   const brand = await BrandEntity.findById(id);
 
   if (!brand) {
@@ -65,6 +86,9 @@ const updateBrand = async (req: Request, res: Response, next: NextFunction) => {
 const getBrands = async (_: Request, res: Response, next: NextFunction) => {
   let brands: BrandDocument[];
 
+  // TO DO For testing client application
+  await sleep(200);
+
   try {
     brands = await BrandEntity.find();
   } catch (err) {
@@ -87,6 +111,13 @@ const deleteBrand = async (req: Request, res: Response, next: NextFunction) => {
 
   if (!brand) {
     next(new HttpError('Brand not found.', 404));
+    return;
+  }
+
+  // TO DO For testing client application
+  await sleep(200);
+  if (brand.name === 'Apple') {
+    next(new HttpError('You cannot delete this record', 404));
     return;
   }
 
