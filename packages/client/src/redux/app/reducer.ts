@@ -14,10 +14,16 @@ const initialState: AppStateType = {
 export const appReducer: Reducer<AppStateType, AppActionFuncType> = (state = initialState, action): AppStateType => {
   switch (action.type) {
     case AppActionType.SHOW_NOTIFICATION: {
-      const { notification } = action.payload;
-      notification.id = AppService.getUID();
+      const { title, description, type, duration } = action.payload;
+      const notification: INotification = {
+        id: AppService.getUID(),
+        type,
+        title,
+        description,
+        duration: duration || 4000,
+      };
+
       const notifications = [...state.notifications];
-      notification.duration = notification.duration || 4000;
       notifications.push(notification);
       return { ...state, notifications };
     }
