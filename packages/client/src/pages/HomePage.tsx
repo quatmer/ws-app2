@@ -62,6 +62,7 @@ const HomePage = () => {
     return () => {
       console.log('[HomePage]: effect counter3 destroy');
     };
+    // eslint-disable-next-line
   }, [counter3.current]);
 
   return (
