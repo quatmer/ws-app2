@@ -1,0 +1,63 @@
+.brand {
+  display: block;
+  max-width: 500px;
+  margin: 40px;
+
+  .title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    ion-spinner {
+      color: #4c6b87;
+      margin-right: 10px;
+    }
+  }
+
+  h6 {
+    font-weight: normal;
+  }
+
+  .table-header {
+    color: #4c6b87;
+    font-weight: bold;
+    border-bottom: 1px solid #e1e3e6;
+    margin: 20px 0 0px 0;
+    padding-bottom: 5px;
+  }
+
+  .new-brand {
+    border: 1px solid #e1e3e6;
+    background-color: #f1f2f6;
+    padding: 25px;
+
+    .title {
+      font-weight: bold;
+      color: #4c6b87;
+      margin-bottom: 5px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: row;
+    }
+
+    input {
+      background-color: white;
+      border: 1px solid #e1e3e6;
+    }
+
+    ion-button {
+      margin-left: 10px;
+    }
+  }
+
+  // .brand-list-item {
+  //   padding: 8px 0 8px 0;
+  //   border-bottom: 1px solid #e1e3e6;
+  // }
+}
+
+.item-native {
+  padding-left: 0 !important;
+}
