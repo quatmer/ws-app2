@@ -4,10 +4,13 @@ import React from 'react';
 import AppInit from './AppInit';
 import { Provider } from 'react-redux';
 import { configureStore } from './redux/store';
+import { ServiceProvider } from './api/context/ServiceContext';
 
 const App: React.FC = () => (
   <Provider store={configureStore()}>
-    <AppInit />;
+    <ServiceProvider>
+      <AppInit />
+    </ServiceProvider>
   </Provider>
 );
 

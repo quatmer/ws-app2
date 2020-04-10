@@ -12,12 +12,12 @@ import {
   IonCol,
 } from '@ionic/react';
 import { logOutSharp } from 'ionicons/icons';
-import { useDispatch } from 'react-redux';
-import { AuthActions } from 'src/redux/auth/action';
 import WideModal from 'src/components/WideModal';
 import GridLayout from 'src/layouts/GridLayout';
+import { useServices } from 'src/api/context/ServiceContext';
 
 const HomePage = () => {
+  const { Auth } = useServices();
   console.log('[HomePage]: init');
 
   let counter2 = 0;
@@ -26,10 +26,9 @@ const HomePage = () => {
 
   const [counter, setCounter] = useState(0);
   const [openModal, setOpenModal] = useState(false);
-  const dispatch = useDispatch();
 
   const logout = () => {
-    dispatch(AuthActions.logout());
+    Auth.logout();
   };
 
   useEffect(() => {

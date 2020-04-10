@@ -16,12 +16,13 @@ import {
 import { useTypeSelector } from 'src/redux/helper/selector.helper';
 import { useDispatch } from 'react-redux';
 import { AuthActions } from 'src/redux/auth/action';
+import { useServices } from 'src/api/context/ServiceContext';
 
 type State = { username: string; password: string; rePassword: string };
 
 const SignupForm = () => {
-  const dispatch = useDispatch();
-  const { loading } = useTypeSelector(s => s.authState);
+  const { Auth } = useServices();
+  const [loading, setLoading] = useState(false);
   const [state, setState] = useState<State>({ username: 'quatmer', password: '4mer', rePassword: '4mer' });
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -35,7 +36,10 @@ const SignupForm = () => {
   }, [state.password, state.rePassword]);
 
   const register = () => {
-    dispatch(AuthActions.register(state.username, state.password));
+    setLoading(true);
+    Auth.register(state.username, state.password)
+      .then(() => setLoading(false))
+      .catch(() => setLoading(false));
   };
 
   return (

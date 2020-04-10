@@ -12,21 +12,19 @@ import {
   IonButton,
   IonSpinner,
 } from '@ionic/react';
-import { useDispatch } from 'react-redux';
-import { AuthActions } from 'src/redux/auth/action';
-import { useTypeSelector } from 'src/redux/helper/selector.helper';
 import { useLocation } from 'react-router';
 import AuthLayout from 'src/layouts/AuthLayout';
+import { useServices } from '../../api/context/ServiceContext';
 
 type State = {
   username: string;
   password: string;
 };
 const LoginForm = () => {
+  const { Auth } = useServices();
   const [state, setState] = useState<State>({ username: 'quatmer', password: '4mer' });
-  const { loading } = useTypeSelector(s => s.authState);
+  const [loading, setLoading] = useState(false);
   const location = useLocation<{ from: Location }>();
-  const dispatch = useDispatch();
 
   let redirectPath = '/';
   if (!!location.state && location.state.from) {
@@ -34,7 +32,10 @@ const LoginForm = () => {
   }
 
   const login = () => {
-    dispatch(AuthActions.login(state.username, state.password));
+    setLoading(true);
+    Auth.login(state.username, state.password)
+      .then(() => setLoading(false))
+      .catch(() => setLoading(false));
   };
 
   return (
