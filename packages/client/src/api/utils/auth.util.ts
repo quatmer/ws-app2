@@ -1,6 +1,6 @@
 import { IUser } from '@shared/models/user';
 
-export const AuthServices = {
+export const AuthUtils = {
   setToken: (token: string) => {
     localStorage.setItem('authToken', token);
   },

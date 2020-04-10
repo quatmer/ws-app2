@@ -1,10 +1,10 @@
 import Axios from 'axios';
-import { AuthServices } from './auth.service';
+import { AuthUtils } from '../utils/auth.util';
 
 export const HttpService = {
   initializeAxios: () => {
     Axios.defaults.baseURL = ' http://localhost:3000';
-    Axios.defaults.headers.common['auth'] = AuthServices.getToken();
+    Axios.defaults.headers.common['auth'] = AuthUtils.getToken();
   },
 
   startLogging: () => {
