@@ -9,6 +9,7 @@ const corsOptions: CorsOptions = {
       callback(new Error(`Not allowed by CORS:${origin}`));
     }
   },
+  exposedHeaders: 'auth',
 };
 
 export const corsCredential = cors(corsOptions);
