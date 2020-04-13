@@ -3,9 +3,9 @@ import { IonItem, IonButton, IonButtons, IonIcon, IonSpinner } from '@ionic/reac
 import { createOutline, trashOutline } from 'ionicons/icons';
 import ProductBrandEdit from './ProductBrandEdit';
 import { useServices } from 'src/api/context/ServiceContext';
-import { IBrand } from '@shared/models/product-brand';
+import { IProductBrand } from '@shared/models/product-brand';
 
-type Props = { brand: IBrand };
+type Props = { brand: IProductBrand };
 
 const ProductBrandListItem = (props: Props) => {
   const [isEditMode, setEditMode] = useState(false);
@@ -16,8 +16,8 @@ const ProductBrandListItem = (props: Props) => {
     setLoading(true);
     brandService
       .delete(props.brand._id)
-      .then(() => {})
-      .catch(() => {})
+      .then(() => { })
+      .catch(() => { })
       .finally(() => {
         setLoading(false);
       });
@@ -40,15 +40,15 @@ const ProductBrandListItem = (props: Props) => {
         {loading ? (
           <IonSpinner slot="end" />
         ) : (
-          <IonButtons slot="end">
-            <IonButton fill="clear" onClick={() => editBrand()}>
-              <IonIcon slot="icon-only" icon={createOutline} />
-            </IonButton>
-            <IonButton fill="clear" color="danger" onClick={() => deleteBrand()}>
-              <IonIcon slot="icon-only" icon={trashOutline} />
-            </IonButton>
-          </IonButtons>
-        )}
+            <IonButtons slot="end">
+              <IonButton fill="clear" onClick={() => editBrand()}>
+                <IonIcon slot="icon-only" icon={createOutline} />
+              </IonButton>
+              <IonButton fill="clear" color="danger" onClick={() => deleteBrand()}>
+                <IonIcon slot="icon-only" icon={trashOutline} />
+              </IonButton>
+            </IonButtons>
+          )}
       </IonItem>
     </div>
   );

@@ -3,10 +3,10 @@ import TightModal from 'src/components/TightModal';
 import { IonButton, IonInput, IonCol, IonList, IonItem, IonSpinner, IonIcon, IonLabel } from '@ionic/react';
 import GridLayout from 'src/layouts/GridLayout';
 import { useServices } from 'src/api/context/ServiceContext';
-import { IBrand } from '@shared/models/product-brand';
+import { IProductBrand } from '@shared/models/product-brand';
 
 type Props = {
-  brand: IBrand;
+  brand: IProductBrand;
   isEditMode: boolean;
   exitEditMode: () => void;
 };
@@ -65,11 +65,11 @@ const ProductBrandEdit = (props: Props) => {
             {loading ? (
               <IonSpinner name="dots" />
             ) : (
-              <>
-                Update
+                <>
+                  Update
                 <IonIcon slot="end" />
-              </>
-            )}
+                </>
+              )}
           </IonButton>
         </IonCol>
       </GridLayout>

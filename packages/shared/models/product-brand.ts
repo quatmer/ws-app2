@@ -1,6 +1,6 @@
-export interface IBrand extends IBrandDocument {
+export interface IProductBrand extends IProductBrandDocument {
   _id: string;
 }
-export interface IBrandDocument {
+export interface IProductBrandDocument {
   name: string;
 }

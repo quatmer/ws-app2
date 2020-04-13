@@ -1,9 +1,9 @@
 import { Reducer } from 'typesafe-actions';
 import { ProductBrandActionType, ProductBrandFuncType } from './action';
-import { IBrand } from '@shared/models/product-brand';
+import { IProductBrand } from '@shared/models/product-brand';
 
 export type ProductBrandStateType = {
-  brands: IBrand[];
+  brands: IProductBrand[];
 };
 
 const initialState: ProductBrandStateType = {

@@ -1,14 +1,14 @@
 import { AppActions } from 'src/redux/app/action';
 import Axios from 'axios';
 import { BaseService } from './base.service';
-import { IBrand } from '@shared/models/product-brand';
+import { IProductBrand } from '@shared/models/product-brand';
 import { BrandActions } from 'src/redux/product-brand/action';
 
 export class BrandService extends BaseService {
   create(name: string) {
-    return new Promise<IBrand>(async (resolve, reject) => {
+    return new Promise<IProductBrand>(async (resolve, reject) => {
       try {
-        const response = await Axios.post<{ brand: IBrand }>('/brand', { name });
+        const response = await Axios.post<{ brand: IProductBrand }>('/brand', { name });
         const { brand } = response.data;
 
         this.dispatch(BrandActions.add(brand));
@@ -25,9 +25,9 @@ export class BrandService extends BaseService {
   }
 
   update(id: string, name: string) {
-    return new Promise<IBrand>(async (resolve, reject) => {
+    return new Promise<IProductBrand>(async (resolve, reject) => {
       try {
-        const response = await Axios.post<{ brand: IBrand }>('/brand/' + id, { name });
+        const response = await Axios.post<{ brand: IProductBrand }>('/brand/' + id, { name });
         const { brand } = response.data;
         this.dispatch(BrandActions.update(brand));
         this.dispatch(
@@ -57,9 +57,9 @@ export class BrandService extends BaseService {
   }
 
   getList() {
-    return new Promise<IBrand[]>(async (resolve, reject) => {
+    return new Promise<IProductBrand[]>(async (resolve, reject) => {
       try {
-        const response = await Axios.get<{ brands: IBrand[] }>('/brand', {});
+        const response = await Axios.get<{ brands: IProductBrand[] }>('/brand', {});
 
         this.dispatch(BrandActions.setList(response.data.brands));
         resolve(response.data.brands);

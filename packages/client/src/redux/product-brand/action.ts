@@ -1,6 +1,6 @@
 import { action } from 'typesafe-actions';
 import { ActionsUnion } from '../helper/type.helper';
-import { IBrand } from '@shared/models/product-brand';
+import { IProductBrand } from '@shared/models/product-brand';
 
 export enum ProductBrandActionType {
   ADD = '[brand]: ADD',
@@ -10,10 +10,10 @@ export enum ProductBrandActionType {
 }
 
 export const BrandActions = {
-  add: (brand: IBrand) => action(ProductBrandActionType.ADD, { brand }),
-  update: (brand: IBrand) => action(ProductBrandActionType.UPDATE, { brand }),
+  add: (brand: IProductBrand) => action(ProductBrandActionType.ADD, { brand }),
+  update: (brand: IProductBrand) => action(ProductBrandActionType.UPDATE, { brand }),
   delete: (id: string) => action(ProductBrandActionType.DELETE, { id }),
-  setList: (brands: IBrand[]) => action(ProductBrandActionType.SET_LIST, { brands }),
+  setList: (brands: IProductBrand[]) => action(ProductBrandActionType.SET_LIST, { brands }),
 };
 
 export type ProductBrandFuncType = ActionsUnion<typeof BrandActions>;
