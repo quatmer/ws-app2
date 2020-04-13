@@ -13,9 +13,6 @@ import {
   IonNote,
   IonSpinner,
 } from '@ionic/react';
-import { useTypeSelector } from 'src/redux/helper/selector.helper';
-import { useDispatch } from 'react-redux';
-import { AuthActions } from 'src/redux/auth/action';
 import { useServices } from 'src/api/context/ServiceContext';
 
 type State = { username: string; password: string; rePassword: string };

@@ -9,8 +9,11 @@ export class AuthService extends BaseService {
   login(username: string, password: string) {
     return new Promise<IUser>(async (resolve, reject) => {
       try {
-        const response = await Axios.post<{ user: IUser }>('/auth/login', { username, password });
-        const { user } = response.data;
+        const response = await Axios.post<{ user: IUser; token: string }>('/auth/login', { username, password });
+        const { user, token } = response.data;
+
+        AuthUtils.setToken(token);
+        AuthUtils.setUser(user);
 
         this.dispatch(AuthActions.authenticate(user));
         resolve(user);
