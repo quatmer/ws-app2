@@ -1,8 +1,8 @@
 import { AppActions } from 'src/redux/app/action';
 import Axios from 'axios';
 import { BaseService } from './base.service';
-import { IBrand } from '@shared/models/brand';
-import { BrandActions } from 'src/redux/brand/action';
+import { IBrand } from '@shared/models/product-brand';
+import { BrandActions } from 'src/redux/product-brand/action';
 
 export class BrandService extends BaseService {
   create(name: string) {
