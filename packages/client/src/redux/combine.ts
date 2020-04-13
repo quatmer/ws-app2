@@ -1,4 +1,4 @@
-import { brandReducer } from './brand/reducer';
+import { brandReducer } from './product-brand/reducer';
 import { appReducer } from './app/reducer';
 import { combineEpics } from 'redux-observable';
 import { combineReducers } from 'redux';

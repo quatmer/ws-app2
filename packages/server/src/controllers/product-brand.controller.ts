@@ -1,6 +1,6 @@
-import { HttpError } from './../util/HttpError';
+import { HttpError } from '../util/HttpError';
 import { Request, Response, NextFunction } from 'express';
-import { BrandEntity, BrandDocument } from './../entities/brand.entity';
+import { ProductBrandEntity, ProductBrandDocument } from '../entities/product-brand.entity';
 
 // TO DO For testing client application
 function sleep(ms: number) {
@@ -24,7 +24,7 @@ const createBrand = async (req: Request, res: Response, next: NextFunction) => {
     return;
   }
 
-  const brand = new BrandEntity({ name });
+  const brand = new ProductBrandEntity({ name });
 
   const validationError = await brand.validateSync();
   if (validationError) {
@@ -58,7 +58,7 @@ const updateBrand = async (req: Request, res: Response, next: NextFunction) => {
   }
   await sleep(200);
 
-  const brand = await BrandEntity.findById(id);
+  const brand = await ProductBrandEntity.findById(id);
 
   if (!brand) {
     next(new HttpError('Brand not exist.', 400));
@@ -84,13 +84,13 @@ const updateBrand = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getBrands = async (_: Request, res: Response, next: NextFunction) => {
-  let brands: BrandDocument[];
+  let brands: ProductBrandDocument[];
 
   // TO DO For testing client application
   await sleep(200);
 
   try {
-    brands = await BrandEntity.find();
+    brands = await ProductBrandEntity.find();
   } catch (err) {
     next(new HttpError(err.message, 400));
     return;
@@ -107,7 +107,7 @@ const deleteBrand = async (req: Request, res: Response, next: NextFunction) => {
     return;
   }
 
-  const brand = await BrandEntity.findById(id);
+  const brand = await ProductBrandEntity.findById(id);
 
   if (!brand) {
     next(new HttpError('Brand not found.', 404));

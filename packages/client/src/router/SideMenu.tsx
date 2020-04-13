@@ -33,14 +33,20 @@ const appPages: AppPage[] = [
     mdIcon: mailSharp,
   },
   {
+    title: 'Product',
+    url: '/product',
+    iosIcon: gridOutline,
+    mdIcon: gridSharp,
+  },
+  {
     title: 'Product Category',
     url: '/product-category',
     iosIcon: gridOutline,
     mdIcon: gridSharp,
   },
   {
-    title: 'Brand',
-    url: '/brand',
+    title: 'Product Brand',
+    url: '/product-brand',
     iosIcon: gridOutline,
     mdIcon: gridSharp,
   },

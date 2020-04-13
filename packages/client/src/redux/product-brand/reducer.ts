@@ -1,25 +1,28 @@
-import { IBrand } from './../../../../shared/models/brand';
 import { Reducer } from 'typesafe-actions';
-import { BrandActionType, BrandFuncType } from './action';
+import { ProductBrandActionType, ProductBrandFuncType } from './action';
+import { IBrand } from '@shared/models/product-brand';
 
-export type BrandStateType = {
+export type ProductBrandStateType = {
   brands: IBrand[];
 };
 
-const initialState: BrandStateType = {
+const initialState: ProductBrandStateType = {
   brands: [],
 };
 
-export const brandReducer: Reducer<BrandStateType, BrandFuncType> = (state = initialState, action): BrandStateType => {
+export const brandReducer: Reducer<ProductBrandStateType, ProductBrandFuncType> = (
+  state = initialState,
+  action,
+): ProductBrandStateType => {
   switch (action.type) {
-    case BrandActionType.ADD: {
+    case ProductBrandActionType.ADD: {
       const { brand } = action.payload;
       const brands = [...state.brands];
       brands.push(brand);
       return { ...state, brands };
     }
 
-    case BrandActionType.UPDATE: {
+    case ProductBrandActionType.UPDATE: {
       // TO DO bagindan koparmaya gerek var mi ?
       const { brand } = action.payload;
       var upt = state.brands.find(x => x._id === brand._id);
@@ -27,7 +30,7 @@ export const brandReducer: Reducer<BrandStateType, BrandFuncType> = (state = ini
       return { ...state };
     }
 
-    case BrandActionType.DELETE: {
+    case ProductBrandActionType.DELETE: {
       const { id } = action.payload;
       let brands = [...state.brands];
       const index = brands.findIndex(c => c._id === id);
@@ -35,7 +38,7 @@ export const brandReducer: Reducer<BrandStateType, BrandFuncType> = (state = ini
       return { ...state, brands };
     }
 
-    case BrandActionType.SET_LIST: {
+    case ProductBrandActionType.SET_LIST: {
       const { brands } = action.payload;
       return { ...state, brands };
     }

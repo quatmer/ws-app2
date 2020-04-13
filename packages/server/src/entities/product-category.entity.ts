@@ -2,7 +2,7 @@ import { Schema, Document, model } from 'mongoose';
 import mongooseUniqueValidator = require('mongoose-unique-validator');
 import { IProductCategoryDocument } from '@shared/models/product-category';
 
-const ProductCategorySchema = new Schema(
+export const ProductCategorySchema = new Schema(
   {
     name: { type: String, required: true },
     productCount: { type: Number, default: 0 },
