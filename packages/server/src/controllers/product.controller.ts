@@ -3,13 +3,14 @@ import { Request, Response, NextFunction } from 'express';
 import { HttpError } from '../util/HttpError';
 
 const insert = async (req: Request, res: Response, next: NextFunction) => {
-  const { name, description, unit, price, categories } = req.body;
+  const { name, description, unit, price, brand, categories } = req.body;
 
   let product = new ProductEntity();
   product.name = name;
   product.description = description;
   product.unit = unit;
   product.price = price;
+  product.brand = brand;
   product.categories = categories;
 
   console.log('[product-controller:insert] Request Product Object : ' + JSON.stringify(product));
