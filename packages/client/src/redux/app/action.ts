@@ -1,4 +1,3 @@
-import { INotification } from './../../api/models/notification';
 import { action } from 'typesafe-actions';
 import { ActionsUnion } from '../helper/type.helper';
 
@@ -8,7 +7,12 @@ export enum AppActionType {
 }
 
 export const AppActions = {
-  showNotification: (notification: INotification) => action(AppActionType.SHOW_NOTIFICATION, { notification }),
+  showNotification: (
+    title: string,
+    description: string,
+    type: 'danger' | 'warning' | 'information',
+    duration?: number,
+  ) => action(AppActionType.SHOW_NOTIFICATION, { title, description, type, duration }),
   hideNotification: (id: string) => action(AppActionType.HIDE_NOTIFICATION, { id }),
 };
 

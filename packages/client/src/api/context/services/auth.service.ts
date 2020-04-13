@@ -17,14 +17,7 @@ export class AuthService extends BaseService {
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
 
-        this.dispatch(
-          AppActions.showNotification({
-            type: 'danger',
-            description: message,
-            id: new Date().getTime().toString(),
-            title: 'Login Error',
-          }),
-        );
+        this.dispatch(AppActions.showNotification('Login Error', message, 'danger'));
 
         reject(message);
       }
@@ -42,14 +35,7 @@ export class AuthService extends BaseService {
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
 
-        this.dispatch(
-          AppActions.showNotification({
-            type: 'danger',
-            description: message,
-            id: new Date().getTime().toString(),
-            title: 'Register Error',
-          }),
-        );
+        this.dispatch(AppActions.showNotification('Register Error', message, 'danger'));
 
         reject(message);
       }
