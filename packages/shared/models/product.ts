@@ -6,5 +6,6 @@ export interface IProductDocument {
   description: string;
   unit: string;
   price: number;
+  brand: string;
   categories: string[];
 }
