@@ -11,13 +11,8 @@ export const HttpService = {
   checkToken: (Auth: AuthService) => {
     Axios.interceptors.response.use(
       response => {
-        const token = response.config.headers['authxx'];
-        const fireToken = response.config.headers['fire-auth'];
-        // console.log(axios.defaults.headers.get('fire-auth'));
-        // console.log(response.headers.get('fire-auth'));
-
-        console.log({ token, fireToken }, { response });
-
+        const token = response.headers['auth'];
+        AuthUtils.setToken(token);
         return response;
       },
       error => {
