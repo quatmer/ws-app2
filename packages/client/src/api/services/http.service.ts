@@ -12,7 +12,10 @@ export const HttpService = {
     Axios.interceptors.response.use(
       response => {
         const token = response.headers['auth'];
-        AuthUtils.setToken(token);
+        if (token) {
+          AuthUtils.setToken(token);
+          Axios.defaults.headers.common['auth'] = AuthUtils.getToken();
+        }
         return response;
       },
       error => {
