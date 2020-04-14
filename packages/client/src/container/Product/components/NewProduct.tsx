@@ -1,83 +1,122 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   IonLabel,
-  IonInput,
   IonItem,
-  IonContent,
-  IonSelect,
-  IonSelectOption,
   IonList,
-  IonListHeader,
   IonButton,
   IonCol,
+  IonSelectOption,
 } from '@ionic/react';
-import { IProduct } from '@shared/models/product';
-import { IProductDTO } from 'src/api/dto/product.dto';
-import { useTypeSelector } from 'src/redux/helper/selector.helper';
-import { IProductBrand } from '@shared/models/product-brand';
-import { useServices } from 'src/api/context/ServiceContext';
-import { dispatch } from 'rxjs/internal/observable/pairs';
-import { ProductActions } from '../../../redux/product/action';
+import { useDispatch } from 'react-redux';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import IonFormikField from '../../../components/formik/IonFormikField';
+import IonFormikError from '../../../components/formik/IonFormikError';
+import { IProductDTO } from '../../../api/dto/product.dto';
+import { useTypeSelector } from '../../../redux/helper/selector.helper';
+import { useServices } from '../../../api/context/ServiceContext';
+import { ProductCategoryActions } from '../../../redux/product-category/action';
+import IonFormikSelect from '../../../components/formik/IonSelectField';
 
-type State = {
-  product: IProductDTO;
-};
 
 const NewProduct = () => {
-  const [state, setState] = useState<State>({
-    product: { name: '', description: '', unit: '', price: 0, categories: [], brand: '' },
-  });
-  const { brands } = useTypeSelector(x => x.brandState);
+  const { brands } = useTypeSelector(x => x.productBrandState);
+  const { categories } = useTypeSelector(x => x.productCategoryState);
   const { brandService } = useServices();
-  const [loading, setLoading] = useState(false);
+  const { productService } = useServices();
+  const dispatch = useDispatch()
+
 
   useEffect(() => {
-    if (brands.length == 0) {
+    if (brands.length === 0) {
       brandService.getList();
     }
+    if (categories.length === 0) {
+      dispatch(ProductCategoryActions.getList())
+    }
+    // eslint-disable-next-line
   }, []);
 
+  const handleSubmitForm = (values: IProductDTO) => {
+
+    console.log('Form Values:', values);
+    productService.create(values).then((product) => {
+      console.log('Created product:', product)
+    }
+    ).catch((error) => {
+      console.log("Error ", error)
+    }
+    );
+
+  };
+
+  const formInitialValue: IProductDTO = { name: 'Televizyon', description: 'LCD', unit: 'adet', price: 1000, categories: [], brand: '' };
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required('Name is required!'),
+    description: Yup.string().required('Description is required!'),
+    unit: Yup.string().required('Unit is required!'),
+    price: Yup.number().required('Price is required!'),
+    categories: Yup.array<string>().required('Categories is required!'),
+    brand: Yup.string().required('Brand is required!'),
+  });
+
   return (
-    <form>
-      <IonList>
-        <IonItem>
-          <IonLabel position="floating">Name</IonLabel>
-          <IonInput />
-        </IonItem>
+    <Formik initialValues={formInitialValue} validationSchema={validationSchema} onSubmit={handleSubmitForm}>
+      {() => {
+        return (
+          <Form>
+            <IonList>
+              <IonItem >
+                <IonLabel color='tertiary' position="floating"  >Name</IonLabel>
+                <IonFormikField name='name' />
+                <IonFormikError name='name' />
+              </IonItem>
 
-        <IonItem>
-          <IonLabel position="floating">Description</IonLabel>
-          <IonInput />
-        </IonItem>
+              <IonItem >
+                <IonLabel color='tertiary' position="floating">Description</IonLabel>
+                <IonFormikField rowCount={4} name='description' />
+                <IonFormikError name='description' />
+              </IonItem>
 
-        <IonItem>
-          <IonLabel position="floating">Unit</IonLabel>
-          <IonInput />
-        </IonItem>
+              <IonItem >
+                <IonLabel color='tertiary' position="floating">Unit</IonLabel>
+                <IonFormikField name='unit' />
+                <IonFormikError name='unit' />
+              </IonItem>
 
-        <IonItem>
-          <IonLabel position="floating">Price</IonLabel>
-          <IonInput />
-        </IonItem>
+              <IonItem >
+                <IonLabel color='tertiary' position="floating">Price</IonLabel>
+                <IonFormikField name='price' />
+                <IonFormikError name='price' />
+              </IonItem>
 
-        <IonItem>
-          <IonLabel position="floating">Brand</IonLabel>
-          <IonSelect
-            value={state.product.brand}
-            placeholder="Select One"
-            onIonChange={e => console.log(e.detail.value)}>
-            {brands.map(item => (
-              <IonSelectOption key={item._id} value={item._id}>
-                {item.name}
-              </IonSelectOption>
-            ))}
-          </IonSelect>
-        </IonItem>
-        <IonCol size="12" class="content-center">
-          <IonButton class="full-width">SAVE</IonButton>
-        </IonCol>
-      </IonList>
-    </form>
+              <IonItem >
+                <IonLabel color='tertiary' position="floating">Brand</IonLabel>
+                <IonFormikSelect name='brand'>
+                  {
+                    brands.map(item => <IonSelectOption key={item._id} value={item._id}>{item.name}</IonSelectOption>)
+                  }
+                </IonFormikSelect>
+                <IonFormikError name='brand' />
+              </IonItem>
+
+              <IonItem >
+                <IonLabel color='tertiary' position="floating">Category</IonLabel>
+                <IonFormikSelect name='categories' multiple={true}>
+                  {categories.map(item => (
+                    <IonSelectOption key={item._id} value={item._id}>{item.name}</IonSelectOption>
+                  ))}
+                </IonFormikSelect>
+              </IonItem>
+
+              <IonCol size="12" class="content-center">
+                <IonButton class="full-width" type="submit" >SAVE</IonButton>
+              </IonCol>
+            </IonList>
+          </Form>
+        )
+      }}
+    </Formik>
   );
 };
 
