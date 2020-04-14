@@ -1,9 +1,9 @@
 import { AuthUtils } from '../../utils/auth.util';
 import { IUser } from '@shared/models/user';
-import { AppActions } from 'src/redux/app/action';
 import Axios from 'axios';
-import { AuthActions } from 'src/redux/auth/action';
 import { BaseService } from './base.service';
+import { AppActions } from '../../../redux/app/action';
+import { AuthActions } from '../../../redux/auth/action';
 
 export class AuthService extends BaseService {
   login(username: string, password: string) {
@@ -30,8 +30,11 @@ export class AuthService extends BaseService {
   register(username: string, password: string) {
     return new Promise<IUser>(async (resolve, reject) => {
       try {
-        const response = await Axios.post<{ user: IUser }>('/auth/register', { username, password });
-        const { user } = response.data;
+        const response = await Axios.post<{ user: IUser; token: string }>('/auth/register', { username, password });
+        const { user, token } = response.data;
+
+        AuthUtils.setToken(token);
+        AuthUtils.setUser(user);
 
         this.dispatch(AuthActions.authenticate(user));
         resolve(user);
