@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ProductCategoryList from 'src/container/ProductCategory/ProductCategoryList';
 import {
   IonPage,
   IonHeader,
@@ -13,8 +12,9 @@ import {
   IonIcon,
 } from '@ionic/react';
 import { add } from 'ionicons/icons';
-import TightModal from 'src/components/TightModal';
-import ProductCategoryEdit from 'src/container/ProductCategory/components/ProductCategoryEdit';
+import TightModal from '../components/TightModal';
+import ProductCategoryEdit from '../container/ProductCategory/components/ProductCategoryEdit';
+import ProductCategoryList from '../container/ProductCategory/ProductCategoryList';
 
 const ProductCategoryPage = () => {
   const [showForm, setShowForm] = useState(false);
