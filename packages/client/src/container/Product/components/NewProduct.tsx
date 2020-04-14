@@ -1,83 +1,84 @@
-import React, { useState, useEffect } from 'react'
-import { IonLabel, IonInput, IonItem, IonContent, IonSelect, IonSelectOption, IonList, IonListHeader, IonButton, IonCol } from '@ionic/react'
-import { IProduct } from '@shared/models/product'
-import { IProductDTO } from 'src/api/dto/product.dto'
-import { useTypeSelector } from 'src/redux/helper/selector.helper'
-import { IProductBrand } from '@shared/models/product-brand'
-import { useServices } from 'src/api/context/ServiceContext'
+import React, { useState, useEffect } from 'react';
+import {
+  IonLabel,
+  IonInput,
+  IonItem,
+  IonContent,
+  IonSelect,
+  IonSelectOption,
+  IonList,
+  IonListHeader,
+  IonButton,
+  IonCol,
+} from '@ionic/react';
+import { IProduct } from '@shared/models/product';
+import { IProductDTO } from 'src/api/dto/product.dto';
+import { useTypeSelector } from 'src/redux/helper/selector.helper';
+import { IProductBrand } from '@shared/models/product-brand';
+import { useServices } from 'src/api/context/ServiceContext';
+import { dispatch } from 'rxjs/internal/observable/pairs';
+import { ProductActions } from '../../../redux/product/action';
 
 type State = {
-  product: IProductDTO
-}
+  product: IProductDTO;
+};
 
 const NewProduct = () => {
-  const [state, setState] = useState<State>({ product: { name: '', description: '', unit: '', price: 0, categories: [], brand: '' } })
-  const { brands } = useTypeSelector(x => x.brandState)
+  const [state, setState] = useState<State>({
+    product: { name: '', description: '', unit: '', price: 0, categories: [], brand: '' },
+  });
+  const { brands } = useTypeSelector(x => x.brandState);
   const { brandService } = useServices();
-
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (brands.length == 0) {
-      brandService.getList()
+      brandService.getList();
     }
-
-  }, [])
+  }, []);
 
   return (
-
     <form>
-
       <IonList>
-
-
         <IonItem>
-          <IonLabel position='floating'>              Name        </IonLabel>
+          <IonLabel position="floating">Name</IonLabel>
           <IonInput />
         </IonItem>
 
         <IonItem>
-          <IonLabel position='floating'>
-            Description
-        </IonLabel>
+          <IonLabel position="floating">Description</IonLabel>
           <IonInput />
         </IonItem>
 
         <IonItem>
-          <IonLabel position='floating'>
-            Unit
-        </IonLabel>
+          <IonLabel position="floating">Unit</IonLabel>
           <IonInput />
         </IonItem>
 
         <IonItem>
-          <IonLabel position='floating'>
-            Price
-        </IonLabel>
+          <IonLabel position="floating">Price</IonLabel>
           <IonInput />
         </IonItem>
 
-
-
         <IonItem>
-          <IonLabel position='floating'>
-            Brand
-        </IonLabel>
-
-          <IonSelect value={state.product.brand} placeholder="Select One" onIonChange={e => console.log(e.detail.value)}>
-            {
-              brands.map(item =>
-                <IonSelectOption key={item._id} value={item._id}>{item.name}</IonSelectOption>
-              )}
+          <IonLabel position="floating">Brand</IonLabel>
+          <IonSelect
+            value={state.product.brand}
+            placeholder="Select One"
+            onIonChange={e => console.log(e.detail.value)}>
+            {brands.map(item => (
+              <IonSelectOption key={item._id} value={item._id}>
+                {item.name}
+              </IonSelectOption>
+            ))}
           </IonSelect>
-
         </IonItem>
         <IonCol size="12" class="content-center">
-          <IonButton class='full-width'>SAVE</IonButton>
+          <IonButton class="full-width">SAVE</IonButton>
         </IonCol>
       </IonList>
     </form>
+  );
+};
 
-  )
-}
-
-export default NewProduct
+export default NewProduct;
