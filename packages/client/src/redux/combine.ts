@@ -12,5 +12,5 @@ export const rootReducer = combineReducers({
   authState: authReducer,
   appState: appReducer,
   productCategoryState: productCategoryReducer,
-  brandState: brandReducer,
+  productBrandState: brandReducer,
 });

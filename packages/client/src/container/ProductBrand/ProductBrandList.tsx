@@ -8,7 +8,7 @@ import { IonSpinner } from '@ionic/react';
 import { useServices } from 'src/api/context/ServiceContext';
 
 const ProductBrandList = () => {
-  const { brands } = useTypeSelector(x => x.brandState);
+  const { brands } = useTypeSelector(x => x.productBrandState);
   const { brandService } = useServices();
   const [loading, setLoading] = useState(false);
   const [delayed, setDelayed] = useState(false);
