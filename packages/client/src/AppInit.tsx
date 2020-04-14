@@ -9,6 +9,7 @@ const AppInit = () => {
   const { Auth } = useServices();
   useEffect(() => {
     AppService.initApp(Auth);
+    // eslint-disable-next-line
   }, []);
 
   return (
