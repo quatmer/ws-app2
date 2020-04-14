@@ -1,8 +1,10 @@
+import { HttpService } from './../services/http.service';
 import { IUser } from '@shared/models/user';
 
 export const AuthUtils = {
   setToken: (token: string) => {
     localStorage.setItem('authToken', token);
+    HttpService.initializeAxios();
   },
 
   getToken: () => {
