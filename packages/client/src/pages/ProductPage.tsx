@@ -11,7 +11,6 @@ import {
   IonButton,
   IonIcon,
 } from '@ionic/react';
-import ProductBrandList from 'src/container/ProductBrand/ProductBrandList';
 import { add } from 'ionicons/icons';
 import NewProduct from 'src/container/Product/components/NewProduct';
 
@@ -30,6 +29,9 @@ const ProductPage = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar color="tertiary">
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
           <IonButtons slot="end">
             <IonButton onClick={openModal}>
               Add New Product
