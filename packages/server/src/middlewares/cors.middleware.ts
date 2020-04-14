@@ -12,4 +12,4 @@ const corsOptions: CorsOptions = {
   exposedHeaders: 'auth',
 };
 
-export const corsCredential = cors(corsOptions);
+export const corsCredential = cors(); //corsOptions
