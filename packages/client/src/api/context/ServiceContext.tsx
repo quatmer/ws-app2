@@ -2,10 +2,12 @@ import React, { createContext, FC, useContext, useEffect } from 'react';
 import { AuthService } from './services/auth.service';
 import { useDispatch } from 'react-redux';
 import { BrandService } from './services/brand.service';
+import { ProductService } from './services/product.service';
 
 type Services = {
   Auth: AuthService;
-  brandService: BrandService
+  brandService: BrandService,
+  productService: ProductService
 };
 
 const ServiceContext = createContext<Services>({} as Services);
@@ -23,7 +25,8 @@ export const ServiceProvider: FC = props => {
 
   const services: Services = {
     Auth: new AuthService(dispatch),
-    brandService: new BrandService(dispatch)
+    brandService: new BrandService(dispatch),
+    productService: new ProductService(dispatch)
   };
 
   return <ServiceContext.Provider value={services}>{props.children}</ServiceContext.Provider>;
