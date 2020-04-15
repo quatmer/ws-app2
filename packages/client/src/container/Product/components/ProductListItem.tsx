@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonItem, IonButton, IonButtons, IonIcon, IonSpinner, IonRow, IonCol, IonLabel, IonBadge } from '@ionic/react';
+import { IonItem, IonButton, IonButtons, IonIcon, IonSpinner, IonLabel, IonBadge } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
 import { IProduct } from '../../../../../shared/models/product';
 import { useServices } from '../../../api/context/ServiceContext';
