@@ -2,8 +2,8 @@ import Axios from 'axios';
 import { ProductActions } from './../../../redux/product/action';
 import { BaseService } from './base.service';
 import { IProductDTO } from '../../dto/product.dto';
-import { AppActions } from '../../../redux/app/action';
 import { IProduct } from '../../../../../shared/models/product';
+import { AppUtil } from 'src/api/utils/app.util';
 
 export class ProductService extends BaseService {
   create(newProduct: IProductDTO) {
@@ -13,17 +13,11 @@ export class ProductService extends BaseService {
         const { product } = response.data;
 
         this.dispatch(ProductActions.add(product));
-        this.dispatch(
-          AppActions.showNotification(
-            'Create product',
-            `Product [${product.name}] successfully created`,
-            'information',
-          ),
-        );
+        AppUtil.showNotification('info', 'Create product', `Product [${product.name}] successfully created`);
         resolve(product);
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
-        this.dispatch(AppActions.showNotification('Error on create product', message, 'danger'));
+        AppUtil.showNotification('error', 'Error on create product', message);
         reject(message);
       }
     });
@@ -35,13 +29,7 @@ export class ProductService extends BaseService {
         const response = await Axios.post<{ product: IProduct }>('/product/' + uProduct.id, { uProduct });
         const { product } = response.data;
         this.dispatch(ProductActions.update(product));
-        this.dispatch(
-          AppActions.showNotification(
-            'Update product',
-            `Product [${product.name}] successfully updated`,
-            'information',
-          ),
-        );
+        AppUtil.showNotification('info', 'Update product', `Product [${product.name}] successfully updated`);
         resolve(product);
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
@@ -55,11 +43,11 @@ export class ProductService extends BaseService {
       try {
         await Axios.delete('/product/' + id);
         this.dispatch(ProductActions.delete(id));
-        this.dispatch(AppActions.showNotification('Delete product', `Product successfully deleted.`, 'information'));
+        AppUtil.showNotification('info', 'Delete product', `Product successfully deleted.`);
         resolve();
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
-        this.dispatch(AppActions.showNotification('Error on delete product.', message, 'danger'));
+        AppUtil.showNotification('error', 'Error on delete product.', message);
         reject(message);
       }
     });
@@ -73,7 +61,7 @@ export class ProductService extends BaseService {
         resolve(response.data.products);
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
-        this.dispatch(AppActions.showNotification('Error on get list of product.', message, 'danger'));
+        AppUtil.showNotification('error', 'Error on get list of product.', message);
         reject(message);
       }
     });

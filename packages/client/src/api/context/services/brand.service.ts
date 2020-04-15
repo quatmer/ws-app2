@@ -1,4 +1,4 @@
-import { AppActions } from 'src/redux/app/action';
+import { AppUtil } from './../../utils/app.util';
 import Axios from 'axios';
 import { BaseService } from './base.service';
 import { IProductBrand } from '@shared/models/product-brand';
@@ -12,13 +12,11 @@ export class BrandService extends BaseService {
         const { brand } = response.data;
 
         this.dispatch(BrandActions.add(brand));
-        this.dispatch(
-          AppActions.showNotification('Create brand', `Brand [${brand.name}] successfully created`, 'information'),
-        );
+        AppUtil.showNotification('info', 'Create brand', `Brand [${brand.name}] successfully created`);
         resolve(brand);
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
-        this.dispatch(AppActions.showNotification('Error on create brand', message, 'danger'));
+        AppUtil.showNotification('error', 'Error on create brand', message);
         reject(message);
       }
     });
@@ -30,9 +28,7 @@ export class BrandService extends BaseService {
         const response = await Axios.post<{ brand: IProductBrand }>('/brand/' + id, { name });
         const { brand } = response.data;
         this.dispatch(BrandActions.update(brand));
-        this.dispatch(
-          AppActions.showNotification('Update brand', `Brand [${brand.name}] successfully updated`, 'information'),
-        );
+        AppUtil.showNotification('info', 'Update brand', `Brand [${brand.name}] successfully updated`);
         resolve(brand);
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
@@ -46,11 +42,11 @@ export class BrandService extends BaseService {
       try {
         await Axios.delete('/brand/' + id);
         this.dispatch(BrandActions.delete(id));
-        this.dispatch(AppActions.showNotification('Delete brand', `Brand successfully deleted`, 'information'));
+        AppUtil.showNotification('info', 'Delete brand', `Brand successfully deleted`);
         resolve();
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
-        this.dispatch(AppActions.showNotification('Error on delete brand', message, 'danger'));
+        AppUtil.showNotification('error', 'Error on delete brand', message);
         reject(message);
       }
     });
@@ -65,7 +61,7 @@ export class BrandService extends BaseService {
         resolve(response.data.brands);
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
-        this.dispatch(AppActions.showNotification('Error on get list of brand', message, 'danger'));
+        AppUtil.showNotification('error', 'Error on get list of brand', message);
         reject(message);
       }
     });

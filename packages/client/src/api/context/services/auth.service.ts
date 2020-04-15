@@ -1,8 +1,8 @@
+import { AppUtil } from './../../utils/app.util';
 import { AuthUtils } from '../../utils/auth.util';
 import { IUser } from '@shared/models/user';
 import Axios from 'axios';
 import { BaseService } from './base.service';
-import { AppActions } from '../../../redux/app/action';
 import { AuthActions } from '../../../redux/auth/action';
 
 export class AuthService extends BaseService {
@@ -20,7 +20,7 @@ export class AuthService extends BaseService {
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
 
-        this.dispatch(AppActions.showNotification('Login Error', message, 'danger'));
+        AppUtil.showNotification('error', 'Login Error', message);
 
         reject(message);
       }
@@ -40,8 +40,7 @@ export class AuthService extends BaseService {
         resolve(user);
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
-
-        this.dispatch(AppActions.showNotification('Register Error', message, 'danger'));
+        AppUtil.showNotification('error', 'Register Error', message);
 
         reject(message);
       }
