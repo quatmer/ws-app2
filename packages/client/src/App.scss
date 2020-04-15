@@ -17,6 +17,9 @@
 /* Theme variables */
 @import './theme/variables.css';
 
+/*Ant Design*/
+@import '../node_modules/antd/dist/antd.css';
+
 .full-size {
   height: 100%;
   width: 100%;
