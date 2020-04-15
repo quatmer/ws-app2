@@ -10,7 +10,7 @@ import { IProduct } from '../../../../../shared/models/product';
 const ProductList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { products } = useTypeSelector(p => p.productState);
-  const { ProductService: productService } = useServices();
+  const { ProductService } = useServices();
   const [editedProduct, setEditedProduct] = useState<IProduct>();
 
   const closeModal = () => {
@@ -23,7 +23,8 @@ const ProductList = () => {
   };
 
   useEffect(() => {
-    productService.getList();
+    ProductService.getList();
+    //eslint-disable-next-line
   }, []);
 
   return (
