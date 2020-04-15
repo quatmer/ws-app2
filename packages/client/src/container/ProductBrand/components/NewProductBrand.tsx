@@ -6,12 +6,11 @@ const NewProductBrand = () => {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { brandService } = useServices();
+  const { BrandService } = useServices();
 
   const createProductBrand = () => {
     setLoading(true);
-    brandService
-      .create(name)
+    BrandService.create(name)
       .then(() => {
         setName('');
       })

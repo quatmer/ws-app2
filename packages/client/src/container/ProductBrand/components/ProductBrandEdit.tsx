@@ -15,13 +15,12 @@ const ProductBrandEdit = (props: Props) => {
   const [name, setName] = useState(props.brand.name);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { brandService } = useServices();
+  const { BrandService } = useServices();
 
   const updateBrand = () => {
     setLoading(true);
 
-    brandService
-      .update(props.brand._id, name)
+    BrandService.update(props.brand._id, name)
       .then(() => {
         props.exitEditMode();
       })
@@ -65,11 +64,11 @@ const ProductBrandEdit = (props: Props) => {
             {loading ? (
               <IonSpinner name="dots" />
             ) : (
-                <>
-                  Update
+              <>
+                Update
                 <IonIcon slot="end" />
-                </>
-              )}
+              </>
+            )}
           </IonButton>
         </IonCol>
       </GridLayout>

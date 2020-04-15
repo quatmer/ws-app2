@@ -9,7 +9,7 @@ import { useServices } from 'src/api/context/ServiceContext';
 
 const ProductBrandList = () => {
   const { brands } = useTypeSelector(x => x.productBrandState);
-  const { brandService } = useServices();
+  const { BrandService } = useServices();
   const [loading, setLoading] = useState(false);
   const [delayed, setDelayed] = useState(false);
 
@@ -19,8 +19,7 @@ const ProductBrandList = () => {
     }, 400);
 
     setLoading(true);
-    brandService
-      .getList()
+    BrandService.getList()
       .then(() => setLoading(false))
       .catch(() => setLoading(false));
     return () => {
