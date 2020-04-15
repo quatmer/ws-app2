@@ -1,22 +1,77 @@
-#wide-modal {
-  /* Extra small devices (phones, 600px and down) */
-  @media only screen and (max-width: 600px) {
-    .modal-wrapper {
-      min-width: 500px;
-    }
-  }
-
+#ion-wide-modal {
   /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px) {
-    .modal-wrapper {
-      min-width: 600px;
+  @media only screen and (max-width: 769px) {
+    #wide-modal {
+      position: relative;
+      background-color: white;
+
+      #toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgb(218, 77, 77);
+
+        #title {
+          h3 {
+            color: white;
+            line-height: unset;
+            margin: 8px;
+          }
+          margin-left: 30px;
+        }
+      }
+
+      #content {
+        padding: 10px;
+        #description {
+          padding: 5px 25px;
+        }
+      }
     }
   }
 
   /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 769px) {
     .modal-wrapper {
       min-width: 700px;
+    }
+
+    #wide-modal {
+      position: relative;
+      // padding: 5px;
+      background-color: white;
+      border-radius: 15px;
+
+      #toolbar {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgb(218, 77, 77);
+
+        #title {
+          h3 {
+            color: white;
+            line-height: unset;
+            margin: 8px;
+          }
+          margin-left: 30px;
+        }
+      }
+
+      #content {
+        padding: 10px;
+        #description {
+          padding: 5px 25px;
+        }
+      }
+    }
+    .modal-wrapper.sc-ion-modal-md {
+      background-color: transparent;
+      --box-shadow: none;
+      --max-width: 80vw;
+      // margin-bottom: 250px;
     }
   }
 
@@ -32,40 +87,6 @@
     .modal-wrapper {
       min-width: 1000px;
     }
-  }
-
-  #modal {
-    position: relative;
-    // padding: 5px;
-    background-color: white;
-    border-radius: 15px;
-
-    #toolbar {
-      border-top-left-radius: 15px;
-      border-top-right-radius: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: rgb(218, 77, 77);
-
-      #title {
-        color: white;
-        margin-left: 30px;
-      }
-    }
-
-    #content {
-      padding: 10px;
-      #description {
-        padding: 5px 25px;
-      }
-    }
-  }
-  .modal-wrapper.sc-ion-modal-md {
-    background-color: transparent;
-    --box-shadow: none;
-    --max-width: 80vw;
-    // margin-bottom: 250px;
   }
 }
 

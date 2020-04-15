@@ -1,15 +1,15 @@
 import './Component.scss';
 import React, { FC, useRef } from 'react';
-import { IonModal, IonButton, IonIcon, IonNote, } from '@ionic/react';
+import { IonModal, IonButton, IonIcon, IonNote, IonContent } from '@ionic/react';
 import { close } from 'ionicons/icons';
 
-type Props = { isOpen: boolean; onDidDismiss: () => void; title: string, description?: string };
+type Props = { isOpen: boolean; onDidDismiss: () => void; title: string; description?: string };
 const WideModal: FC<Props> = props => {
   const ref = useRef<HTMLIonModalElement | null>(null);
 
   return (
-    <IonModal id="wide-modal" keyboardClose isOpen={props.isOpen} onDidDismiss={props.onDidDismiss} ref={ref}>
-      <div id="modal">
+    <IonModal id="ion-wide-modal" keyboardClose isOpen={props.isOpen} onDidDismiss={props.onDidDismiss} ref={ref}>
+      <div id="wide-modal">
         <div id="toolbar">
           <div id="title">
             <h3>{props.title}</h3>
