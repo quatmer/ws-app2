@@ -12,7 +12,8 @@ import {
   IonIcon,
 } from '@ionic/react';
 import { add } from 'ionicons/icons';
-import NewProduct from 'src/container/Product/components/NewProduct';
+import ProductList from '../container/Product/components/ProductList';
+import ProductCreateEdit from '../container/Product/components/ProductCreateEdit';
 
 const ProductPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,13 +43,9 @@ const ProductPage = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <WideModal
-          title="New Product"
-          isOpen={isModalOpen}
-          onDidDismiss={() => {
-            closeModal();
-          }}>
-          <NewProduct />
+        <ProductList />
+        <WideModal title="New Product" isOpen={isModalOpen} onDidDismiss={closeModal}>
+          <ProductCreateEdit onCloseForm={closeModal} />
         </WideModal>
       </IonContent>
     </IonPage>
