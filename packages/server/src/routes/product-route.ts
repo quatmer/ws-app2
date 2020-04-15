@@ -4,6 +4,9 @@ import { Router } from 'express';
 
 const productRouter = Router();
 
-productRouter.post('/', [checkAuthentication], ProductController.insert);
+productRouter.post('/', [checkAuthentication], ProductController.insertProduct);
+productRouter.post('/:id', [checkAuthentication], ProductController.updateProduct);
+productRouter.delete('/:id', [checkAuthentication], ProductController.deleteProdut);
+productRouter.get('/', [checkAuthentication], ProductController.getProductList);
 
 export default productRouter;
