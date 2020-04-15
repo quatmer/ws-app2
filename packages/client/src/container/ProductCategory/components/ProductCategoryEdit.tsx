@@ -5,8 +5,8 @@ import { IonCol, IonList, IonItem, IonLabel, IonText, IonInput, IonButton, IonSp
 import { sync, createOutline } from 'ionicons/icons';
 import { useTypeSelector } from 'src/redux/helper/selector.helper';
 import { ProductCategoryActions } from 'src/redux/product-category/action';
-import { AppService } from 'src/api/services/app.service';
 import { useDispatch } from 'react-redux';
+import { AppUtil } from 'src/api/utils/app.util';
 
 type Props = {
   parentId: string | null;
@@ -43,7 +43,7 @@ const ProductCategoryEdit = ({ category, onCloseForm, parentId }: Props) => {
     if (formType === 'create') {
       dispatch(
         ProductCategoryActions.create({
-          _id: AppService.getUID(),
+          _id: AppUtil.getUID(),
           name: categoryName,
           parentId: parentId,
           productCount: 0,
