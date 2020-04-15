@@ -18,7 +18,7 @@ import { useServices } from 'src/api/context/ServiceContext';
 
 const HomePage = () => {
   const { Auth } = useServices();
-  console.log('[HomePage]: init');
+  //console.log('[HomePage]: init');
 
   let counter2 = 0;
 
@@ -32,34 +32,34 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    console.log('[HomePage]: effect init');
+    //console.log('[HomePage]: effect init');
     return () => {
-      console.log('[HomePage]: effect destroy');
+      //console.log('[HomePage]: effect destroy');
     };
   }, []);
 
   useEffect(() => {
-    console.log('[HomePage]: effect counter init');
+    //console.log('[HomePage]: effect counter init');
     return () => {
-      console.log('[HomePage]: effect counter destroy');
+      //console.log('[HomePage]: effect counter destroy');
     };
   }, [counter]);
 
   useEffect(() => {
     console.log(counter2);
 
-    console.log('[HomePage]: effect counter2 init');
+    //console.log('[HomePage]: effect counter2 init');
     return () => {
-      console.log('[HomePage]: effect counter2 destroy');
+      //console.log('[HomePage]: effect counter2 destroy');
     };
   }, [counter2]);
 
   useEffect(() => {
     console.log(counter3.current);
 
-    console.log('[HomePage]: effect counter3 init');
+    //console.log('[HomePage]: effect counter3 init');
     return () => {
-      console.log('[HomePage]: effect counter3 destroy');
+      //console.log('[HomePage]: effect counter3 destroy');
     };
     // eslint-disable-next-line
   }, [counter3.current]);
