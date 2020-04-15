@@ -6,18 +6,18 @@ import { ProductService } from './services/product.service';
 
 type Services = {
   Auth: AuthService;
-  brandService: BrandService,
-  productService: ProductService
+  BrandService: BrandService;
+  ProductService: ProductService;
 };
 
 const ServiceContext = createContext<Services>({} as Services);
 
 export const ServiceProvider: FC = props => {
-  console.log('Service Provider init');
+  //console.log('Service Provider init');
   useEffect(() => {
-    console.log('Service Provider effect init');
+    //console.log('Service Provider effect init');
     return () => {
-      console.log('Service Provider effect destroy');
+      //console.log('Service Provider effect destroy');
     };
   }, []);
 
@@ -25,12 +25,11 @@ export const ServiceProvider: FC = props => {
 
   const services: Services = {
     Auth: new AuthService(dispatch),
-    brandService: new BrandService(dispatch),
-    productService: new ProductService(dispatch)
+    BrandService: new BrandService(dispatch),
+    ProductService: new ProductService(dispatch),
   };
 
   return <ServiceContext.Provider value={services}>{props.children}</ServiceContext.Provider>;
 };
 
 export const useServices = () => useContext(ServiceContext);
-
