@@ -1,11 +1,10 @@
 import { ProductBrandEntity } from './../entities/product-brand.entity';
-import { IProductCategory } from '@shared/models/product-category';
 import { ProductEntity } from './../entities/product.entity';
 import { Request, Response, NextFunction } from 'express';
 import { HttpError } from '../util/HttpError';
 import { ProductCategoryEntity } from '../entities/product-category.entity';
 
-const insert = async (req: Request, res: Response, next: NextFunction) => {
+const insertProduct = async (req: Request, res: Response, next: NextFunction) => {
   const { name, description, unit, price, brand: _brand, categories: _categories } = req.body;
 
   console.log('Request body:', req.body);
@@ -52,6 +51,78 @@ const insert = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getProductList = async (req: Request, res: Response, next: NextFunction) => {
+  console.log('Product getList request body:', req.body);
+
+  try {
+    const products = await ProductEntity.find();
+    res.status(200).send({ message: 'Products loaded.', products });
+  } catch (err) {
+    next(new HttpError(err.message, 400));
+    return;
+  }
+};
+
+const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
+  const { id } = req.params;
+
+  //check missing parameter
+  if (!id) {
+    next(new HttpError('Missing parameter.', 400));
+    return;
+  }
+
+  const product = await ProductEntity.findById(id);
+
+  //check category exist
+  if (!product) {
+    next(new HttpError('Product not found.', 404));
+    return;
+  }
+
+  try {
+    await product.remove();
+  } catch (err) {
+    next(new HttpError(err.message, 400));
+    return;
+  }
+
+  res.status(200).send({ message: 'Product deleted.' });
+};
+
+const updateProduct = async (req: Request) => {
+  //   const  product:IProduct  = req.body;
+  // if (!id || !name) {
+  //   next(new HttpError('Missing parameter.', 400));
+  //   return;
+  // }
+  // // checking is product exist
+  // const product = await ProductEntity.findById(id);
+  // if (!product) {
+  //   next(new HttpError('Product not exist.', 400));
+  //   return;
+  // }
+  // // update model
+  // product.name = name;
+  // // checking document validation
+  // const validationError = await product.validateSync();
+  // if (validationError) {
+  //   next(new HttpError(validationError.message, 400));
+  //   return;
+  // }
+  // try {
+  //   // save model
+  //   await product.save();
+  // } catch (err) {
+  //   next(new HttpError(err.message, 404));
+  //   return;
+  // }
+  // res.status(200).send({ message: 'Product updated.', category: product });
+};
+
 export const ProductController = {
-  insert,
+  getProductList: getProductList,
+  insertProduct: insertProduct,
+  deleteProdut: deleteProduct,
+  updateProduct: updateProduct,
 };
