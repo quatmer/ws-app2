@@ -23,16 +23,18 @@ export class ProductService extends BaseService {
     });
   }
 
-  update(uProduct: IProductDTO) {
+  update(_product: IProductDTO) {
     return new Promise<IProduct>(async (resolve, reject) => {
       try {
-        const response = await Axios.post<{ product: IProduct }>('/product/' + uProduct.id, { uProduct });
+        const response = await Axios.post<{ product: IProduct }>('/product/' + _product.id, { product: _product });
         const { product } = response.data;
+        console.log('Update product response data:', response.data);
         this.dispatch(ProductActions.update(product));
         AppUtil.showNotification('info', 'Update product', `Product [${product.name}] successfully updated`);
         resolve(product);
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
+        console.log('Update product error:', message);
         reject(message);
       }
     });
