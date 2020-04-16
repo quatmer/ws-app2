@@ -23,13 +23,40 @@ mongooseUniqueValidator(ProductSchema);
 export interface ProductDocument extends IProductDocument, Document {}
 
 ProductSchema.pre<ProductDocument>('save', async function (next) {
-  const categoryIds = this.categories.map(x => x._id);
-  if (this.isNew) {
-    ProductCategoryService.increaseProductCount(categoryIds);
-  } else {
+  if (this.isModified('categories')) {
+    const newCatIds = this.categories.map(x => x._id);
+    if (this.isNew) {
+      ProductCategoryService.increaseProductCount(newCatIds)
+        .then(() => next())
+        .catch(message => next(new Error(message)));
+    } else {
+      //get current product's categories
+      const product = await ProductEntity.findById(this._id);
+      if (product) {
+        const oldCatIds = product.categories.map(x => x._id);
+        //decrease product count
+        ProductCategoryService.decreaseProductCount(oldCatIds)
+          .then(() =>
+            //increase product count
+            ProductCategoryService.increaseProductCount(newCatIds)
+              .then(() => next())
+              .catch(message => next(new Error(message))),
+          )
+          .catch(message => next(new Error(message)));
+      }
+    }
   }
 
   next();
+});
+
+ProductSchema.pre<ProductDocument>('remove', async function (next) {
+  const categoryIds = this.categories.map(x => x._id);
+  if (this.isNew) {
+    ProductCategoryService.decreaseProductCount(categoryIds)
+      .then(() => next())
+      .catch(message => next(new Error(message)));
+  }
 });
 
 export const ProductEntity = model<ProductDocument>('Product', ProductSchema);
