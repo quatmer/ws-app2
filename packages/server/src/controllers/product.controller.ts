@@ -8,19 +8,15 @@ import { IProduct } from '../../../shared/models/product';
 const insertProduct = async (req: Request, res: Response, next: NextFunction) => {
   const { name, description, unit, price, brand: _brand, categories: _categories } = req.body;
 
-  console.log('Request body:', req.body);
-
   //check categories
   if (!_categories || _categories.length === 0) {
     next(new HttpError('Categories cannot found', 500));
     return;
   }
   const categories = await ProductCategoryEntity.find({ _id: _categories });
-  console.log({ cats: categories });
 
   //check brand
   const brand = await ProductBrandEntity.findById(_brand);
-  console.log('Brand:', brand);
   if (!brand) {
     next(new HttpError('Brand cannot found', 500));
     return;
@@ -33,8 +29,6 @@ const insertProduct = async (req: Request, res: Response, next: NextFunction) =>
   product.price = price;
   product.brand = brand;
   product.categories = categories;
-
-  console.log('[product-controller:insert] Request Product Object : ' + JSON.stringify(product));
 
   //Checking document validation
   const validationError = await product.validateSync();
@@ -119,11 +113,9 @@ const updateProduct = async (req: Request, res: Response, next: NextFunction) =>
     return;
   }
   const categories = await ProductCategoryEntity.find({ _id: _categories });
-  console.log({ cats: categories });
 
   //check brand
   const brand = await ProductBrandEntity.findById(_brand);
-  console.log('Brand:', brand);
   if (!brand) {
     next(new HttpError('Brand cannot found', 500));
     return;
@@ -156,8 +148,8 @@ const updateProduct = async (req: Request, res: Response, next: NextFunction) =>
 };
 
 export const ProductController = {
-  getProductList: getProductList,
-  insertProduct: insertProduct,
-  deleteProdut: deleteProduct,
-  updateProduct: updateProduct,
+  getProductList,
+  insertProduct,
+  deleteProduct,
+  updateProduct,
 };
