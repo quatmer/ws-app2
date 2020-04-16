@@ -20,7 +20,6 @@ const ProductListItem = (props: Props) => {
 
   return (
     <div className="product-list-item">
-      {/* <ProductEdit brand={props.brand} exitEditMode={exitEditModeHandler} isEditMode={isEditMode} /> */}
       <IonItem>
         <IonLabel>
           <h3>{props.product.name}</h3>
