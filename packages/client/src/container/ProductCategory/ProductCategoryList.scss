@@ -1,12 +1,10 @@
 #product-category-list {
   margin-left: 10px;
-  #product-category-item {
-    .isSelected {
-      border-bottom: lightcoral solid 0.8px;
-    }
-    .canClick {
-      cursor: pointer;
-    }
+  .isSelected {
+    border-bottom: lightcoral solid 0.8px;
+  }
+  .canClick {
+    cursor: pointer;
   }
 
   #subcategory-list {
