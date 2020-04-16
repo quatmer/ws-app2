@@ -26,21 +26,21 @@ const ProductCreateEdit = (props: Props) => {
 
   const formInitialValue: IProductDTO = props.product
     ? {
-      name: props.product.name,
-      description: props.product.description,
-      brand: props.product.brand._id,
-      price: props.product.price,
-      categories: props.product.categories.map(c => c._id),
-      unit: props.product.unit,
-    }
+        name: props.product.name,
+        description: props.product.description,
+        brand: props.product.brand._id,
+        price: props.product.price,
+        categories: props.product.categories.map(c => c._id),
+        unit: props.product.unit,
+      }
     : {
-      name: '',
-      description: '',
-      unit: '',
-      price: 0,
-      categories: [],
-      brand: '',
-    };
+        name: '',
+        description: '',
+        unit: '',
+        price: 0,
+        categories: [],
+        brand: '',
+      };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required!'),
@@ -53,8 +53,6 @@ const ProductCreateEdit = (props: Props) => {
 
   const refLoading = useRef(loading);
   useEffect(() => {
-    console.log(refLoading, loading, error);
-
     if (refLoading.current && !loading && error === null) {
       props.onCloseForm();
     } else {
@@ -65,28 +63,12 @@ const ProductCreateEdit = (props: Props) => {
 
   const handleSubmitForm = (values: IProductDTO) => {
     if (formType === 'create') {
-      productService
-        .create(values)
-        .then(product => {
-          console.log('Created product:', product);
-          props.onCloseForm();
-        })
-        .catch(error => {
-          console.log('Error: ', error);
-        });
+      productService.create(values).then(() => props.onCloseForm());
     }
 
     if (formType === 'update') {
       values.id = props.product?._id;
-      productService
-        .update(values)
-        .then(uProduct => {
-          console.log('Updated product: ', uProduct);
-          props.onCloseForm();
-        })
-        .catch(error => {
-          console.log('Error: ', error);
-        });
+      productService.update(values).then(() => props.onCloseForm());
     }
   };
 
