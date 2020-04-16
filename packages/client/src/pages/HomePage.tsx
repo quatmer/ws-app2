@@ -14,10 +14,9 @@ import {
   IonCol,
 } from '@ionic/react';
 import { logOutSharp } from 'ionicons/icons';
-import { useServices } from 'src/api/context/ServiceContext';
-
 import { Button, Tooltip } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { useServices } from '../api/context/ServiceContext';
 
 const HomePage = () => {
   const { Auth } = useServices();
