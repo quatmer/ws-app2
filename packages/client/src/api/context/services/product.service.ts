@@ -34,7 +34,7 @@ export class ProductService extends BaseService {
         resolve(product);
       } catch (error) {
         const message = !!error.response ? error.response.statusText : error.message;
-        console.log('Update product error:', message);
+        AppUtil.showNotification('error', 'Error on update product', message);
         reject(message);
       }
     });
