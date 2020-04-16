@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonItem, IonButton, IonButtons, IonIcon, IonSpinner, IonLabel, IonBadge } from '@ionic/react';
+import { IonItem, IonButton, IonButtons, IonIcon, IonSpinner, IonLabel, IonBadge, IonAlert } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
 import { IProduct } from '../../../../../shared/models/product';
 import { useServices } from '../../../api/context/ServiceContext';
@@ -11,6 +11,7 @@ const ProductListItem = (props: Props) => {
   const mount = useIsMounted(); //const mount = useIsMounted('ProductListItem');
   const [loading, setLoading] = useState(false);
   const { ProductService: productService } = useServices();
+  const [showAlert, setShowAlert] = useState(false);
 
   const deleteProduct = () => {
     setLoading(true);
@@ -39,11 +40,30 @@ const ProductListItem = (props: Props) => {
             <IonButton fill="clear" onClick={() => props.onEditProduct()}>
               <IonIcon slot="icon-only" icon={createOutline} />
             </IonButton>
-            <IonButton fill="clear" color="danger" onClick={() => deleteProduct()}>
+            <IonButton fill="clear" color="danger" onClick={() => setShowAlert(true)}>
               <IonIcon slot="icon-only" icon={trashOutline} />
             </IonButton>
           </IonButtons>
         )}
+
+        <IonAlert
+          isOpen={showAlert}
+          onDidDismiss={() => setShowAlert(false)}
+          header={'Delete Confirmation'}
+          message={'Do you want delete <strong>' + props.product.name + '</strong>?'}
+          buttons={[
+            {
+              text: 'Cancel',
+              cssClass: 'secondary',
+            },
+            {
+              text: 'Delete',
+              handler: () => {
+                deleteProduct();
+              },
+            },
+          ]}
+        />
       </IonItem>
     </div>
   );
