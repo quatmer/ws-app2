@@ -1,8 +1,7 @@
 import { Schema, Document, model } from 'mongoose';
 import mongooseUniqueValidator = require('mongoose-unique-validator');
 import { IProductDocument } from '@shared/models/product';
-import { ProductBrandSchema } from './product-brand.entity';
-import { ProductCategorySchema } from './product-category.entity';
+import { ProductCategoryService } from './../services/product-category.service';
 
 const InfoSchema = new Schema({
   name: { type: String },
@@ -21,7 +20,16 @@ const ProductSchema = new Schema(
 );
 
 mongooseUniqueValidator(ProductSchema);
-
 export interface ProductDocument extends IProductDocument, Document {}
+
+ProductSchema.pre<ProductDocument>('save', async function (next) {
+  const categoryIds = this.categories.map(x => x._id);
+  if (this.isNew) {
+    ProductCategoryService.increaseProductCount(categoryIds);
+  } else {
+  }
+
+  next();
+});
 
 export const ProductEntity = model<ProductDocument>('Product', ProductSchema);
