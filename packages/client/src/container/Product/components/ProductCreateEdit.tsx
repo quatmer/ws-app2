@@ -26,21 +26,21 @@ const ProductCreateEdit = (props: Props) => {
 
   const formInitialValue: IProductDTO = props.product
     ? {
-        name: props.product.name,
-        description: props.product.description,
-        brand: props.product.brand._id,
-        price: props.product.price,
-        categories: props.product.categories.map(c => c._id),
-        unit: props.product.unit,
-      }
+      name: props.product.name,
+      description: props.product.description,
+      brand: props.product.brand._id,
+      price: props.product.price,
+      categories: props.product.categories.map(c => c._id),
+      unit: props.product.unit,
+    }
     : {
-        name: '',
-        description: '',
-        unit: '',
-        price: 0,
-        categories: [],
-        brand: '',
-      };
+      name: '',
+      description: '',
+      unit: '',
+      price: 0,
+      categories: [],
+      brand: '',
+    };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required!'),
