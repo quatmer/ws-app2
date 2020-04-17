@@ -6,6 +6,10 @@ import { useDispatch } from 'react-redux';
 import { ProductCategoryActions } from './redux/product-category/action';
 import { useTypeSelector } from './redux/helper/selector.helper';
 import { AppUtil } from './api/utils/app.util';
+import * as firebase from "firebase/app";
+import firebaseConfig from "./firebase.config";
+
+firebase.initializeApp(firebaseConfig);
 
 const AppInit = () => {
   const { user } = useTypeSelector(x => x.authState);

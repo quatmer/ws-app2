@@ -1,6 +1,8 @@
 import Axios from 'axios';
 import { AuthUtils } from '../utils/auth.util';
 import { AuthService } from '../context/services/auth.service';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 
 export const HttpService = {
   initializeAxios: () => {
@@ -16,6 +18,16 @@ export const HttpService = {
           AuthUtils.setToken(token);
           Axios.defaults.headers.common['auth'] = AuthUtils.getToken();
         }
+
+        const firebaseToken = response.headers['fire-auth'];
+        if (firebaseToken) {
+          firebase
+            .auth()
+            .signInWithCustomToken(firebaseToken)
+            .then(value => console.log('Firebase signIn response : ', value))
+            .catch(error => console.log('Error in Firebase signIn :', error));
+        }
+
         return response;
       },
       error => {
