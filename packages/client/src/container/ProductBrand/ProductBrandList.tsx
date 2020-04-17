@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useTypeSelector } from 'src/redux/helper/selector.helper';
 import ProductBrandListItem from './components/ProductBrandListItem';
-
 import './ProductBrandList.scss';
 import NewProductBrand from './components/NewProductBrand';
 import { IonSpinner } from '@ionic/react';
-import { useServices } from 'src/api/context/ServiceContext';
+import { useServices } from '../../api/context/ServiceContext';
+import { useTypeSelector } from '../../redux/helper/selector.helper';
 
 const ProductBrandList = () => {
   const { brands } = useTypeSelector(x => x.productBrandState);

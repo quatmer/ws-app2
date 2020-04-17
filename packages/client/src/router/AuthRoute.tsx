@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Route, Redirect, useLocation } from 'react-router-dom';
-import { useTypeSelector } from 'src/redux/helper/selector.helper';
+import { useTypeSelector } from '../redux/helper/selector.helper';
 
 type Props = { path: string; component: FC; exact: boolean };
 const AuthRoute = (props: Props) => {

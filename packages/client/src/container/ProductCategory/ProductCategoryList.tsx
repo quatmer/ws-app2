@@ -1,12 +1,12 @@
 import './ProductCategoryList.scss';
 import React, { useEffect, useState } from 'react';
-import { useTypeSelector } from 'src/redux/helper/selector.helper';
 import ProductCategoryListItem from './components/ProductCategoryListItem';
 import { useDispatch } from 'react-redux';
 import { ProductCategoryActions } from '../../redux/product-category/action';
-import { ProductCategoryNode } from 'src/api/dto/product-category.dto';
-import ProductCategoryServices from 'src/api/services/product-category.service';
-import Loading from 'src/components/Loading';
+import { useTypeSelector } from '../../redux/helper/selector.helper';
+import { ProductCategoryNode } from '../../api/dto/product-category.dto';
+import ProductCategoryServices from '../../api/services/product-category.service';
+import Loading from '../../components/Loading';
 
 const ProductCategoryList = () => {
   const { categories, loading } = useTypeSelector(c => c.productCategoryState);

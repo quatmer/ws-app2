@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { IProductCategory } from '@shared/models/product-category';
-import GridLayout from 'src/layouts/GridLayout';
 import { IonCol, IonList, IonItem, IonLabel, IonText, IonInput, IonButton, IonSpinner, IonIcon } from '@ionic/react';
 import { sync, createOutline } from 'ionicons/icons';
-import { useTypeSelector } from 'src/redux/helper/selector.helper';
-import { ProductCategoryActions } from 'src/redux/product-category/action';
 import { useDispatch } from 'react-redux';
-import { AppUtil } from 'src/api/utils/app.util';
+import { useTypeSelector } from '../../../redux/helper/selector.helper';
+import { ProductCategoryActions } from '../../../redux/product-category/action';
+import { AppUtil } from '../../../api/utils/app.util';
+import GridLayout from '../../../layouts/GridLayout';
 
 type Props = {
   parentId: string | null;

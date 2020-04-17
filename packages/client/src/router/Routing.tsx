@@ -2,15 +2,15 @@ import React from 'react';
 import { IonReactRouter } from '@ionic/react-router';
 import { IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { Route, Redirect, Switch } from 'react-router';
-import HomePage from 'src/pages/HomePage';
-import LoginPage from 'src/pages/LoginPage';
-import SignupPage from 'src/pages/SignupPage';
-import ErrorPage from 'src/pages/ErrorPage';
 import AuthRoute from './AuthRoute';
-import SideMenu from 'src/router/SideMenu';
-import ProductCategoryPage from 'src/pages/ProductCategoryPage';
-import ProductBrandPage from 'src/pages/ProductBrandPage';
-import ProductPage from 'src/pages/ProductPage';
+import LoginPage from '../pages/LoginPage';
+import SignupPage from '../pages/SignupPage';
+import SideMenu from './SideMenu';
+import HomePage from '../pages/HomePage';
+import ProductPage from '../pages/ProductPage';
+import ProductCategoryPage from '../pages/ProductCategoryPage';
+import ProductBrandPage from '../pages/ProductBrandPage';
+import ErrorPage from '../pages/ErrorPage';
 
 const Routing = () => {
   return (

@@ -22,7 +22,9 @@ const ProductCreateEdit = (props: Props) => {
 
   const { brands } = useTypeSelector(x => x.productBrandState);
   const { categories } = useTypeSelector(x => x.productCategoryState);
-  const { ProductService: productService } = useServices();
+  const { ProductService } = useServices();
+
+  const { products } = useTypeSelector(o => o.productState);
 
   const formInitialValue: IProductDTO = props.product
     ? {
@@ -47,7 +49,7 @@ const ProductCreateEdit = (props: Props) => {
     description: Yup.string().required('Description is required!'),
     unit: Yup.string().required('Unit is required!'),
     price: Yup.number().required('Price is required!').min(0, 'Minimum price must be equal or grater than zero.'),
-    categories: Yup.array<string>().required('Categories is required!'),
+    categories: Yup.array<string>().required('Category information is required!'),
     brand: Yup.string().required('Brand is required!'),
   });
 
@@ -63,12 +65,12 @@ const ProductCreateEdit = (props: Props) => {
 
   const handleSubmitForm = (values: IProductDTO) => {
     if (formType === 'create') {
-      productService.create(values).then(() => props.onCloseForm());
+      ProductService.create(values).then(() => props.onCloseForm());
     }
 
     if (formType === 'update') {
       values.id = props.product?._id;
-      productService.update(values).then(() => props.onCloseForm());
+      ProductService.update(values).then(() => props.onCloseForm());
     }
   };
 
@@ -90,7 +92,7 @@ const ProductCreateEdit = (props: Props) => {
                 <IonLabel color="tertiary" position="floating">
                   Description
                 </IonLabel>
-                <IonFormikField rowCount={4} name="description" />
+                <IonFormikField rowCount={1} name="description" />
                 <IonFormikError name="description" />
               </IonItem>
 

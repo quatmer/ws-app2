@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { IonItem, IonButton, IonButtons, IonIcon, IonSpinner } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
 import ProductBrandEdit from './ProductBrandEdit';
-import { useServices } from 'src/api/context/ServiceContext';
 import { IProductBrand } from '@shared/models/product-brand';
+import { useServices } from '../../../api/context/ServiceContext';
 
 type Props = { brand: IProductBrand };
 

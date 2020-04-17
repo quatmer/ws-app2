@@ -6,7 +6,7 @@ export const ProductBrandSchema = new Schema(
   {
     name: { type: String, required: true },
   },
-  { timestamps: true, versionKey: false, bufferCommands: false, collection: 'brands' },
+  { timestamps: true, versionKey: false, bufferCommands: false, collection: 'product-brands' },
 );
 
 export interface ProductBrandDocument extends IProductBrandDocument, Document {}

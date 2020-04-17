@@ -1,7 +1,7 @@
 import { Reducer } from 'typesafe-actions';
 import { AuthActionFuncType, AuthActionType } from './action';
-import { AuthUtils } from 'src/api/utils/auth.util';
 import { IUser } from '@shared/models/user';
+import { AuthUtils } from '../../api/utils/auth.util';
 
 export type AuthStateType = {
   user: IUser | null;

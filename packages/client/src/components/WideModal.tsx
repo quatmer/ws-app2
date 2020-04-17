@@ -1,6 +1,6 @@
 import './Component.scss';
 import React, { FC, useRef } from 'react';
-import { IonModal, IonButton, IonIcon, IonNote, IonContent } from '@ionic/react';
+import { IonModal, IonButton, IonIcon, IonNote } from '@ionic/react';
 import { close } from 'ionicons/icons';
 
 type Props = { isOpen: boolean; onDidDismiss: () => void; title: string; description?: string };

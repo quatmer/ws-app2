@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import TightModal from 'src/components/TightModal';
 import { IonButton, IonInput, IonCol, IonList, IonItem, IonSpinner, IonIcon, IonLabel } from '@ionic/react';
-import GridLayout from 'src/layouts/GridLayout';
-import { useServices } from 'src/api/context/ServiceContext';
 import { IProductBrand } from '@shared/models/product-brand';
+import { useServices } from '../../../api/context/ServiceContext';
+import GridLayout from '../../../layouts/GridLayout';
+import TightModal from '../../../components/TightModal';
 
 type Props = {
   brand: IProductBrand;

@@ -1,4 +1,4 @@
-import { ProductCategoryNode } from 'src/api/dto/product-category.dto';
+import { ProductCategoryNode } from '../../api/dto/product-category.dto';
 
 const findAndToggleCategory = (id: string, categories: ProductCategoryNode[]): ProductCategoryNode[] => {
   const toggledCategories = [...categories];

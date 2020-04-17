@@ -13,7 +13,7 @@ import {
   IonNote,
   IonSpinner,
 } from '@ionic/react';
-import { useServices } from 'src/api/context/ServiceContext';
+import { useServices } from '../../api/context/ServiceContext';
 
 type State = { username: string; password: string; rePassword: string };
 

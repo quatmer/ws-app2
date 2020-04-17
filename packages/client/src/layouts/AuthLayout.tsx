@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import GridLayout from './GridLayout';
 import { IonCol } from '@ionic/react';
 import { useHistory } from 'react-router';
-import { useTypeSelector } from 'src/redux/helper/selector.helper';
+import { useTypeSelector } from '../redux/helper/selector.helper';
 
 type Props = { redirectPath?: string };
 

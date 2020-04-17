@@ -13,8 +13,8 @@ import {
   IonSpinner,
 } from '@ionic/react';
 import { useLocation } from 'react-router';
-import AuthLayout from 'src/layouts/AuthLayout';
 import { useServices } from '../../api/context/ServiceContext';
+import AuthLayout from '../../layouts/AuthLayout';
 
 type State = {
   username: string;

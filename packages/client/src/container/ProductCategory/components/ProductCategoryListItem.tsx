@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { IonItem, IonLabel, IonText, IonList, IonIcon, IonButtons, IonButton } from '@ionic/react';
 import { useDispatch } from 'react-redux';
-import { ProductCategoryActions } from 'src/redux/product-category/action';
 import classNames from 'classnames';
 import {
   chevronDownOutline,
@@ -11,10 +10,11 @@ import {
   add,
   remove as emptyIcon,
 } from 'ionicons/icons';
-import TightModal from 'src/components/TightModal';
 import ProductCategoryEdit from './ProductCategoryEdit';
-import { ProductCategoryNode } from 'src/api/dto/product-category.dto';
-import { AppUtil } from 'src/api/utils/app.util';
+import { ProductCategoryNode } from '../../../api/dto/product-category.dto';
+import TightModal from '../../../components/TightModal';
+import { AppUtil } from '../../../api/utils/app.util';
+import { ProductCategoryActions } from '../../../redux/product-category/action';
 
 type Props = { category: ProductCategoryNode; onToggle: (category: ProductCategoryNode) => void };
 type State = { parentId: string | null; child?: ProductCategoryNode; showForm: boolean };

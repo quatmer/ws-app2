@@ -3,7 +3,7 @@ import { ProductActions } from './../../../redux/product/action';
 import { BaseService } from './base.service';
 import { IProductDTO } from '../../dto/product.dto';
 import { IProduct } from '../../../../../shared/models/product';
-import { AppUtil } from 'src/api/utils/app.util';
+import { AppUtil } from '../../utils/app.util';
 
 export class ProductService extends BaseService {
   create(newProduct: IProductDTO) {
