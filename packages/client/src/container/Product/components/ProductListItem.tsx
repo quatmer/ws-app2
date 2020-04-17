@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { IonItem, IonButton, IonButtons, IonIcon, IonSpinner, IonLabel, IonBadge, IonAlert } from '@ionic/react';
-import { createOutline, trashOutline } from 'ionicons/icons';
+import { createOutline, trashOutline, imagesOutline } from 'ionicons/icons';
 import { IProduct } from '../../../../../shared/models/product';
 import { useServices } from '../../../api/context/ServiceContext';
 import { useIsMounted } from '../../../api/utils/react.util';
 
-type Props = { product: IProduct; onEditProduct: () => void };
+type Props = { product: IProduct; onEditImage: () => void; onEditProduct: () => void };
 
 const ProductListItem = (props: Props) => {
   const mount = useIsMounted(); //const mount = useIsMounted('ProductListItem');
@@ -35,15 +35,18 @@ const ProductListItem = (props: Props) => {
         {loading ? (
           <IonSpinner slot="end" />
         ) : (
-          <IonButtons slot="end">
-            <IonButton fill="clear" onClick={() => props.onEditProduct()}>
-              <IonIcon slot="icon-only" icon={createOutline} />
-            </IonButton>
-            <IonButton fill="clear" color="danger" onClick={() => setShowAlert(true)}>
-              <IonIcon slot="icon-only" icon={trashOutline} />
-            </IonButton>
-          </IonButtons>
-        )}
+            <IonButtons slot="end">
+              <IonButton fill="clear" onClick={() => props.onEditImage()}>
+                <IonIcon slot="icon-only" icon={imagesOutline} />
+              </IonButton>
+              <IonButton fill="clear" onClick={() => props.onEditProduct()}>
+                <IonIcon slot="icon-only" icon={createOutline} />
+              </IonButton>
+              <IonButton fill="clear" color="danger" onClick={() => setShowAlert(true)}>
+                <IonIcon slot="icon-only" icon={trashOutline} />
+              </IonButton>
+            </IonButtons>
+          )}
 
         <IonAlert
           isOpen={showAlert}
