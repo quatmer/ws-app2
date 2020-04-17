@@ -6,6 +6,12 @@ import router from './routes';
 import { handleRouteError, handleError } from './middlewares/error.middleware';
 import { corsCredential } from './middlewares/cors.middleware';
 import { logger } from './middlewares/logger.middleware';
+import * as admin from 'firebase-admin';
+
+const firebaseConfig = require('./firebase.config.json'); // json import format
+
+// firebase initialize
+admin.initializeApp({ credential: admin.credential.cert(firebaseConfig) });
 
 const app = express();
 

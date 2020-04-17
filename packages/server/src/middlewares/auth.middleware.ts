@@ -2,6 +2,7 @@ import { HttpError } from './../util/HttpError';
 import { UserEntity } from './../entities/user.entity';
 import { JWT, TokenParams } from './../util/JwtHelper';
 import { Request, Response, NextFunction } from 'express';
+import * as admin from 'firebase-admin';
 
 export const checkAuthentication = async (req: Request, res: Response, next: NextFunction) => {
   let tokenParams: TokenParams;
@@ -37,6 +38,16 @@ export const checkAuthentication = async (req: Request, res: Response, next: Nex
   // Send new token on every request
   const newToken = JWT.createToken(tokenParams);
   res.setHeader('auth', newToken);
+
+  // Create firebase custom token
+  try {
+    const firebaseCustomToken = await admin.auth().createCustomToken(tokenParams.userId);
+    res.setHeader('fire-auth', firebaseCustomToken);
+  } catch (error) {
+    console.log('Firebase token cannot created', error);
+    next(new HttpError('Firebase token cannot created'));
+    return;
+  }
 
   next();
 };

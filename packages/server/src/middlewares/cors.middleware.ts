@@ -9,7 +9,7 @@ const corsOptions: CorsOptions = {
       callback(new Error(`Not allowed by CORS:${origin}`));
     }
   },
-  exposedHeaders: 'auth',
+  exposedHeaders: ['auth', 'fire-auth'],
 };
 
-export const corsCredential = cors(); //corsOptions
+export const corsCredential = cors({ exposedHeaders: ['auth', 'fire-auth'] }); //corsOptions
