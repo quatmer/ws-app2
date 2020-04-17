@@ -10,12 +10,12 @@ type Props = { product: IProduct; onEditProduct: () => void };
 const ProductListItem = (props: Props) => {
   const mount = useIsMounted(); //const mount = useIsMounted('ProductListItem');
   const [loading, setLoading] = useState(false);
-  const { ProductService: productService } = useServices();
+  const { ProductService } = useServices();
   const [showAlert, setShowAlert] = useState(false);
 
   const deleteProduct = () => {
     setLoading(true);
-    productService.delete(props.product._id).finally(() => mount.current && setLoading(false));
+    ProductService.delete(props.product._id).finally(() => mount.current && setLoading(false));
   };
 
   return (

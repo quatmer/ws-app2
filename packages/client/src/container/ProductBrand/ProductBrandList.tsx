@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import ProductBrandListItem from './components/ProductBrandListItem';
 import './ProductBrandList.scss';
-import NewProductBrand from './components/NewProductBrand';
 import { IonSpinner } from '@ionic/react';
 import { useServices } from '../../api/context/ServiceContext';
 import { useTypeSelector } from '../../redux/helper/selector.helper';
+import ProductBrandCreate from './components/ProductBrandCreate';
 
 const ProductBrandList = () => {
   const { brands } = useTypeSelector(x => x.productBrandState);
@@ -36,7 +36,7 @@ const ProductBrandList = () => {
       <h6>
         <strong>Brands</strong> are added to products for categorization purpose
       </h6>
-      <NewProductBrand />
+      <ProductBrandCreate />
       <div className="table-header">Name</div>
       {brands.map(item => {
         return <ProductBrandListItem key={item._id} brand={item} />;

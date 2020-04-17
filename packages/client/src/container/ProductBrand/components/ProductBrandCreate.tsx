@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IonInput, IonButton, IonLabel, IonSpinner } from '@ionic/react';
 import { useServices } from '../../../api/context/ServiceContext';
 
-const NewProductBrand = () => {
+const ProductBrandCreate = () => {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -53,4 +53,4 @@ const NewProductBrand = () => {
   );
 };
 
-export default NewProductBrand;
+export default ProductBrandCreate;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonItem, IonButton, IonButtons, IonIcon, IonSpinner } from '@ionic/react';
+import { IonItem, IonButton, IonButtons, IonIcon, IonSpinner, IonAlert } from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
 import ProductBrandEdit from './ProductBrandEdit';
 import { IProductBrand } from '@shared/models/product-brand';
@@ -11,6 +11,7 @@ const ProductBrandListItem = (props: Props) => {
   const [isEditMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
   const { BrandService } = useServices();
+  const [showAlert, setShowAlert] = useState(false);
 
   const deleteBrand = () => {
     setLoading(true);
@@ -43,11 +44,30 @@ const ProductBrandListItem = (props: Props) => {
             <IonButton fill="clear" onClick={() => editBrand()}>
               <IonIcon slot="icon-only" icon={createOutline} />
             </IonButton>
-            <IonButton fill="clear" color="danger" onClick={() => deleteBrand()}>
+            <IonButton fill="clear" color="danger" onClick={() => setShowAlert(true)}>
               <IonIcon slot="icon-only" icon={trashOutline} />
             </IonButton>
           </IonButtons>
         )}
+
+        <IonAlert
+          isOpen={showAlert}
+          onDidDismiss={() => setShowAlert(false)}
+          header={'Delete Confirmation'}
+          message={'Do you want delete <strong>' + props.brand.name + '</strong>?'}
+          buttons={[
+            {
+              text: 'Cancel',
+              cssClass: 'secondary',
+            },
+            {
+              text: 'Delete',
+              handler: () => {
+                deleteBrand();
+              },
+            },
+          ]}
+        />
       </IonItem>
     </div>
   );
